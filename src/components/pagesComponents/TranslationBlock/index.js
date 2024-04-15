@@ -1,1 +1,1 @@
-export { TranslationBlock } from "./TranslationBlock";
+export { TranslationBlock } from './TranslationBlock';

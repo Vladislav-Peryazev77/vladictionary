@@ -1,12 +1,9 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Input,
-  Select,
-  Text,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Select, Text } from '@chakra-ui/react';
+import React from 'react';
+import { TranslationForm } from './components/TranslationForm/TranslationForm';
+import { TranslationWordBlock } from './components/TranslationWordBlock/TranslationWordBlock';
+import { TranslationText } from './components/TranslationText/TranslationText';
+import { LanguageSwitch } from './components/LanguageSwitch/LanguageSwitch';
 
 export const TranslationBlock = () => {
   return (
@@ -31,66 +28,22 @@ export const TranslationBlock = () => {
             minHeight="350px"
             flexBasis="50%"
           >
-            <form>
-              <FormControl display="flex" gap="10px" marginBottom="30px">
-                <Input />
-                <Button>Translate</Button>
-              </FormControl>
-            </form>
-            <Box display="flex" justifyContent="space-between">
-              <Text fontSize="25px">Word</Text>
-              <button>
-                <img
-                  width="20px"
-                  src="src/assets/icons/pronunciation-icon.svg"
-                />
-              </button>
-            </Box>
-            <Text marginBottom="20px">
-              noun <i>/wɜːd/</i>
-            </Text>
-            <Text marginBottom="20px">word, word, word</Text>
-            <Text
-              borderLeft="solid 5px #a35beb"
-              paddingLeft="15px"
-              marginBottom="7px"
-            >
-              <i>sentence with this word</i>
-            </Text>
-            <Text
-              borderLeft="solid 5px #a35beb"
-              paddingLeft="15px"
-              marginBottom="7px"
-            >
-              <i>sentence with this word</i>
-            </Text>
-            <Text
-              borderLeft="solid 5px #a35beb"
-              paddingLeft="15px"
-              marginBottom="7px"
-            >
-              <i>sentence with this word</i>
-            </Text>
+            <TranslationForm />
+            <TranslationWordBlock
+              word="Word"
+              partOfSpeech="noun"
+              phonetic="wɜːd"
+              synonyms={['word', 'word', 'word']}
+              examples={[
+                'content exapmle with this word',
+                'content exapmle with this word',
+                'content exapmle with this word',
+              ]}
+            />
           </Box>
-          <Text flexBasis="50%" padding="15px">
-            Word
-          </Text>
+          <TranslationText>Word</TranslationText>
         </Box>
-        <Box display="flex" justifyContent="center">
-          <Box display="flex" gap="40px">
-            <Select maxWidth="max-content" variant="unstyled">
-              <option value="">English</option>
-              <option value="">Russian</option>
-            </Select>
-            <button>
-              <img src="src/assets/icons/swap-icon.svg" />
-            </button>
-            <Select maxWidth="max-content" variant="unstyled">
-              <option value="">Russian</option>
-              <option value="">English</option>
-            </Select>
-          </Box>
-        </Box>
+        <LanguageSwitch />
       </Box>
     </>
   );
