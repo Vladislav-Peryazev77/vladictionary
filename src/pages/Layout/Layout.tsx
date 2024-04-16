@@ -16,7 +16,8 @@ export const Layout = ({ children }: LayoutProps) => {
         alignItems="center"
         justifyContent="center"
         flexGrow={1}
-        paddingX="30px"
+        paddingX={[0, 0, '30px']}
+        paddingY={['10px', '10px', '30px']}
       >
         {children}
       </Box>
