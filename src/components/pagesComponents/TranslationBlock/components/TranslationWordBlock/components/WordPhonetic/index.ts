@@ -1,0 +1,1 @@
+export { WordPhonetic } from './WordPhonetic';
