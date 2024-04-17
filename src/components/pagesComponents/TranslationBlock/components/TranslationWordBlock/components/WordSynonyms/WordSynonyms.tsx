@@ -1,10 +1,9 @@
 import { Text } from '@chakra-ui/react';
-import React from 'react';
 
-interface WordSynonyms {
+interface WordSynonymsProps {
   synonyms: string[];
 }
 
-export const WordSynonyms = ({ synonyms }: WordSynonyms) => {
+export const WordSynonyms = ({ synonyms }: WordSynonymsProps) => {
   return <Text marginBottom="20px">{synonyms.join(', ')}</Text>;
 };

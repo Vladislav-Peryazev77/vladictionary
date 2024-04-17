@@ -1,11 +1,7 @@
+import { PropsWithChildren } from 'react';
 import { Text } from '@chakra-ui/react';
-import React, { ReactElement } from 'react';
 
-interface TranslationText {
-  children: React.ReactNode;
-}
-
-export const TranslationText = ({ children }: TranslationText) => {
+export const TranslationText = ({ children }: PropsWithChildren) => {
   return (
     <Text flexBasis="50%" padding="15px">
       {children}

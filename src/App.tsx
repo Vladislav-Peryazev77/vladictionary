@@ -1,7 +1,5 @@
-import React from 'react';
-import { Layout } from './pages/Layout/Layout';
-// import './styles/global.css';
-import { TranslationBlock } from './components/pagesComponents/TranslationBlock/TranslationBlock';
+import { Layout } from './pages/Layout';
+import { TranslationBlock } from './components/pagesComponents/TranslationBlock';
 
 export const App = () => {
   return (

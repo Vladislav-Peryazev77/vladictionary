@@ -1,15 +1,16 @@
+import { PropsWithChildren } from 'react';
 import { Box } from '@chakra-ui/react';
-import React from 'react';
-import { Header } from '../../components/pagesComponents/Header/Header';
-import { Footer } from '../../components/pagesComponents/Footer/Footer';
+import { Header } from '../../components/pagesComponents/Header';
+import { Footer } from '../../components/pagesComponents/Footer';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <Box display="flex" flexDirection="column" height="100dvh">
+    <Box
+      display="flex"
+      flexDirection="column"
+      height="100dvh"
+      fontFamily="Comfortaa"
+    >
       <Header />
       <Box
         display="flex"

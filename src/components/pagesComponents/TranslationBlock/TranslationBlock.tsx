@@ -1,9 +1,9 @@
-import { Box, Select, Text } from '@chakra-ui/react';
-import React from 'react';
-import { TranslationForm } from './components/TranslationForm/TranslationForm';
-import { TranslationWordBlock } from './components/TranslationWordBlock/TranslationWordBlock';
-import { TranslationText } from './components/TranslationText/TranslationText';
-import { LanguageSwitch } from './components/LanguageSwitch/LanguageSwitch';
+import { Box } from '@chakra-ui/react';
+
+import { TranslationForm } from './components/TranslationForm';
+import { TranslationWordBlock } from './components/TranslationWordBlock';
+import { TranslationText } from './components/TranslationText';
+import { LanguageSwitch } from './components/LanguageSwitch';
 
 export const TranslationBlock = () => {
   return (

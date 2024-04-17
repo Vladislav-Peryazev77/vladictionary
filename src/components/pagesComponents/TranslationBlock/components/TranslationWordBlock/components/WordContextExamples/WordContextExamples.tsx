@@ -1,5 +1,5 @@
 import { Text } from '@chakra-ui/react';
-import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 interface WordContextExamplesProps {
   examples: string[];
@@ -8,13 +8,13 @@ interface WordContextExamplesProps {
 export const WordContextExamples = ({ examples }: WordContextExamplesProps) => {
   return (
     <>
-      {examples.map((example, index) => {
+      {examples.map((example) => {
         return (
           <Text
             borderLeft="solid 5px #a35beb"
             paddingLeft="15px"
             marginBottom="7px"
-            key={index}
+            key={uuidv4()}
           >
             <i>{example}</i>
           </Text>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, FormControl, Textarea } from '@chakra-ui/react';
 
 export const TranslationForm = () => {
