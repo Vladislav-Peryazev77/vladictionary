@@ -1,1 +1,0 @@
-export { TranslationWordBlock } from './TranslationWordBlock';
