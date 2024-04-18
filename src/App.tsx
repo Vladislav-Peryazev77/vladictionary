@@ -1,5 +1,10 @@
-import React from "react";
+import { Layout } from './pages/Layout';
+import { TranslationBlock } from './components/pagesComponents/TranslationBlock';
 
 export const App = () => {
-  return <div>App</div>;
+  return (
+    <Layout>
+      <TranslationBlock />
+    </Layout>
+  );
 };
