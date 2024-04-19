@@ -5,7 +5,7 @@ export const TranslationForm = () => {
     <form>
       <FormControl display="flex" gap="10px" marginBottom="30px">
         <Textarea maxLength={2000} />
-        <Button>Translate1</Button>
+        <Button>Translate</Button>
       </FormControl>
     </form>
   );
