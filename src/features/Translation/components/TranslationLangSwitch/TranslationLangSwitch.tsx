@@ -1,6 +1,6 @@
 import { Box, Select } from '@chakra-ui/react';
 
-export const LanguageSwitch = () => {
+export const TranslationLangSwitch = () => {
   return (
     <Box display="flex" justifyContent="center" gap="40px">
       <Select maxWidth="max-content" variant="unstyled">

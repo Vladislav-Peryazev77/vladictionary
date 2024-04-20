@@ -1,10 +1,10 @@
 import { Layout } from './pages/Layout';
-import { TranslationBlock } from './components/pagesComponents/TranslationBlock';
+import { TranslationPage } from './pages/TranslationPage';
 
 export const App = () => {
   return (
     <Layout>
-      <TranslationBlock />
+      <TranslationPage />
     </Layout>
   );
 };
