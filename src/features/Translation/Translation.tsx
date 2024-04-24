@@ -3,8 +3,11 @@ import { TranslationForm } from './components/TranslationForm';
 import { TranslationWordBlock } from './components/TranslationWordBlock';
 import { TranslationText } from './components/TranslationText';
 import { TranslationLangSwitch } from './components/TranslationLangSwitch';
+import TranslationStore from '../../stores/TranslationStore/TranslationStore';
+import { observer } from 'mobx-react-lite';
 
-export const Translation = () => {
+export const Translation = observer(() => {
+  const { translationValue } = TranslationStore;
   return (
     <>
       <Box
@@ -34,9 +37,9 @@ export const Translation = () => {
             ]}
           />
         </Box>
-        <TranslationText>Word</TranslationText>
+        <TranslationText>{translationValue}</TranslationText>
       </Box>
       <TranslationLangSwitch />
     </>
   );
-};
+});
