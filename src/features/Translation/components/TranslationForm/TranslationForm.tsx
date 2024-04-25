@@ -3,12 +3,8 @@ import { observer } from 'mobx-react-lite';
 import TranslationStore from '../../../../stores/TranslationStore/TranslationStore';
 
 export const TranslationForm = observer(() => {
-  const {
-    translationValue,
-    textAreaValue,
-    handleTranslationRequest,
-    handleTextAreaValueChange,
-  } = TranslationStore;
+  const { textAreaValue, handleTranslationRequest, handleTextAreaValueChange } =
+    TranslationStore;
 
   const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
