@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { getWordTranlstion } from '../../api/requests/getWordTranslation/getWordTranslation';
+import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 
 class TranslationStore {
   translationValue = '';
@@ -11,7 +11,7 @@ class TranslationStore {
 
   handleTranslationRequest = async (word: string) => {
     try {
-      await getWordTranlstion(word).then((translation) =>
+      await getTranslation(word).then((translation) =>
         this.setTranslationValue(translation.data.translatedText),
       );
     } catch (error) {
