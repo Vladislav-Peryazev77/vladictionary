@@ -9,7 +9,7 @@ class TranslationStore {
     makeAutoObservable(this);
   }
 
-  handleTranslationRequest = async (word: string) => {
+  getTextTranslation = async (word: string) => {
     try {
       await getTranslation(word).then((translation) =>
         this.setTranslationValue(translation.data.translatedText),
