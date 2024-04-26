@@ -41,6 +41,14 @@ class TranslationStore {
       await getTranslation(word).then((translation) =>
         this.setTranslationValue(translation.data.translatedText),
       );
+      // await Promise.all([
+      //   getWordTranlstion(word),
+      //   getWordDescription(word),
+      // ]).then(([translation, description]) => {
+      //   this.setTranslationValue(translation.data.translatedText);
+      //   this.setWordData(description.data);
+      //   console.log(toJS(this.wordData));
+      // });
     } catch (error) {
       console.error('Error fetching translation:', error);
     }
