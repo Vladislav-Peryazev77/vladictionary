@@ -1,5 +1,5 @@
 import { makeAutoObservable, toJS } from 'mobx';
-import { getWordTranlstion } from '../../api/requests/getWordTranslation/getWordTranslation';
+import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 import { getWordDescription } from '../../api/requests/getWordDescription/getWordDescription';
 
 interface Phonetic {
@@ -38,14 +38,9 @@ class TranslationStore {
 
   handleTranslationRequest = async (word: string) => {
     try {
-      await Promise.all([
-        getWordTranlstion(word),
-        getWordDescription(word),
-      ]).then(([translation, description]) => {
-        this.setTranslationValue(translation.data.translatedText);
-        this.setWordData(description.data);
-        console.log(toJS(this.wordData));
-      });
+      await getTranslation(word).then((translation) =>
+        this.setTranslationValue(translation.data.translatedText),
+      );
     } catch (error) {
       console.error('Error fetching translation:', error);
     }
