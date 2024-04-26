@@ -9,7 +9,7 @@ export const TranslationForm = observer(() => {
   const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleTranslationRequest(textAreaValue);
-    handleTextAreaValueChange('');
+    // handleTextAreaValueChange('');
   };
 
   return (

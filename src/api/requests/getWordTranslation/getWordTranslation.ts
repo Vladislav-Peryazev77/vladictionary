@@ -1,6 +1,6 @@
-import { MyAxiosInstance } from '../../axiosInstance/axiosIntance';
+import { MyAxiosInstance } from '../../axiosInstances/TranslationAxiousIntance/TranslationAxiosIntance';
 
-export function getWordTranlstion(word: any) {
+export function getWordTranlstion(word: string) {
   return MyAxiosInstance.post('', {
     q: `${word}`,
     source: 'en',

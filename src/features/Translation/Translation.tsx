@@ -7,7 +7,7 @@ import TranslationStore from '../../stores/TranslationStore/TranslationStore';
 import { observer } from 'mobx-react-lite';
 
 export const Translation = observer(() => {
-  const { translationValue } = TranslationStore;
+  const { textAreaValue, translationValue } = TranslationStore;
   return (
     <>
       <Box
@@ -26,15 +26,15 @@ export const Translation = observer(() => {
         >
           <TranslationForm />
           <TranslationWordBlock
-            word="Word"
-            partOfSpeech="noun"
-            phonetic="wɜːd"
-            synonyms={['word', 'word', 'word']}
-            examples={[
-              'content exapmle with this word',
-              'content exapmle with this word',
-              'content exapmle with this word',
-            ]}
+          // word="Word"
+          // partOfSpeech="noun"
+          // phonetic="wɜːd"
+          // synonyms={['word', 'word', 'word']}
+          // examples={[
+          //   'content exapmle with this word',
+          //   'content exapmle with this word',
+          //   'content exapmle with this word',
+          // ]}
           />
         </Box>
         <TranslationText>{translationValue}</TranslationText>
