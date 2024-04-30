@@ -1,8 +1,8 @@
-import { Box, Text } from '@chakra-ui/react';
-import TranslationStore, {
+import {
   Meaning,
   Phonetic,
 } from '../../../../../../stores/TranslationStore/TranslationStore';
+import { Box, Text } from '@chakra-ui/react';
 
 interface WordPhoneticProps {
   phonetics?: Phonetic[];
@@ -15,7 +15,6 @@ export const WordPhonetic = ({
   word,
   meanings,
 }: WordPhoneticProps) => {
-  // const { textAreaValue, wordData } = TranslationStore;
   return (
     <>
       {phonetics && (
@@ -28,7 +27,6 @@ export const WordPhonetic = ({
       )}
       <Text marginBottom="20px">
         {meanings && meanings.map((meaning) => meaning.partOfSpeech).join(', ')}{' '}
-        {/* {meanings && meanings[0].partOfSpeech}{' '} */}
         {phonetics && phonetics?.find((phonetic) => phonetic.text)?.text}
       </Text>
     </>

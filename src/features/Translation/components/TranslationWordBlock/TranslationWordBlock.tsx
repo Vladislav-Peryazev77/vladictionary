@@ -1,7 +1,7 @@
+import { WordData } from '../../../../stores/TranslationStore/TranslationStore';
 import { WordPhonetic } from './components/WordPhonetic';
 import { WordSynonyms } from './components/WordSynonyms';
 import { WordContextExamples } from './components/WordContextExamples';
-import { WordData } from '../../../../stores/TranslationStore/TranslationStore';
 
 interface TranslationWordBlockProps {
   data?: WordData;

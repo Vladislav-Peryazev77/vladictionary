@@ -1,9 +1,6 @@
-import { Text } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  Definition,
-  Meaning,
-} from '../../../../../../stores/TranslationStore/TranslationStore';
+import { Meaning } from '../../../../../../stores/TranslationStore/TranslationStore';
+import { Text } from '@chakra-ui/react';
 
 interface WordContextExamplesProps {
   meanings?: Meaning[];
@@ -12,18 +9,6 @@ interface WordContextExamplesProps {
 export const WordContextExamples = ({ meanings }: WordContextExamplesProps) => {
   return (
     <>
-      {/* {examples.map((example) => {
-        return (
-          <Text
-            borderLeft="solid 5px #a35beb"
-            paddingLeft="15px"
-            marginBottom="7px"
-            key={uuidv4()}
-          >
-            <i>{example}</i>
-          </Text>
-        );
-      })} */}
       {meanings?.map((meaning) =>
         meaning?.definitions.map((definition) => (
           <Text

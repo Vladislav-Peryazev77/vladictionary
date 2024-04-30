@@ -1,16 +1,11 @@
-import { Box, Button, Text } from '@chakra-ui/react';
+import { observer } from 'mobx-react-lite';
+import TranslationStore from '../../stores/TranslationStore/TranslationStore';
+import { WordData } from '../../stores/TranslationStore/TranslationStore';
+import { Box, Button } from '@chakra-ui/react';
 import { TranslationForm } from './components/TranslationForm';
 import { TranslationWordBlock } from './components/TranslationWordBlock';
 import { TranslationText } from './components/TranslationText';
 import { TranslationLangSwitch } from './components/TranslationLangSwitch';
-import TranslationStore from '../../stores/TranslationStore/TranslationStore';
-import {
-  WordData,
-  Meaning,
-  Phonetic,
-  Definition,
-} from '../../stores/TranslationStore/TranslationStore';
-import { observer } from 'mobx-react-lite';
 
 export const Translation = observer(() => {
   const {
