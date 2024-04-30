@@ -1,35 +1,22 @@
 import { WordPhonetic } from './components/WordPhonetic';
 import { WordSynonyms } from './components/WordSynonyms';
 import { WordContextExamples } from './components/WordContextExamples';
+import { WordData } from '../../../../stores/TranslationStore/TranslationStore';
 
-// interface TranslationWordBlockProps {
-//   word: string;
-//   partOfSpeech: string;
-//   phonetic: string;
-//   synonyms: string[];
-//   examples: string[];
-// }
+interface TranslationWordBlockProps {
+  data?: WordData;
+}
 
-export const TranslationWordBlock = () =>
-  // {
-  // word,
-  // partOfSpeech,
-  // phonetic,
-  // synonyms,
-  // examples,
-  // }: TranslationWordBlockProps
-  {
-    return (
-      <>
-        <WordPhonetic
-        // word={word}
-        // partOfSpeech={partOfSpeech}
-        // phonetic={phonetic}
-        />
-        {/* <WordSynonyms synonyms={synonyms} /> */}
-        <WordSynonyms />
-        {/* <WordContextExamples examples={examples} /> */}
-        <WordContextExamples />
-      </>
-    );
-  };
+export const TranslationWordBlock = ({ data }: TranslationWordBlockProps) => {
+  return (
+    <>
+      <WordPhonetic
+        phonetics={data?.phonetics}
+        word={data?.word}
+        meanings={data?.meanings}
+      />
+      <WordSynonyms meanings={data?.meanings} />
+      <WordContextExamples meanings={data?.meanings} />
+    </>
+  );
+};

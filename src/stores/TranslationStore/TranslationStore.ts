@@ -2,24 +2,25 @@ import { makeAutoObservable, toJS } from 'mobx';
 import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 import { getWordDescription } from '../../api/requests/getWordDescription/getWordDescription';
 
-interface Phonetic {
+export interface Phonetic {
   text: string;
   audio?: string;
 }
 
-interface Definition {
+export interface Definition {
   definition: string;
   example: string;
   synonyms: string[];
   antonyms: string[];
 }
 
-interface Meaning {
+export interface Meaning {
   partOfSpeech: string;
   definitions: Definition[];
+  synonyms: string[];
 }
 
-interface WordData {
+export interface WordData {
   word: string;
   phonetic?: string;
   phonetics?: Phonetic[];
@@ -31,6 +32,7 @@ class TranslationStore {
   translationValue = '';
   wordData: WordData[] = [];
   textAreaValue = '';
+  isShowOtherMeanings = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -41,16 +43,19 @@ class TranslationStore {
       await getTranslation(word).then((translation) =>
         this.setTranslationValue(translation.data.translatedText),
       );
-      // await Promise.all([
-      //   getWordTranlstion(word),
-      //   getWordDescription(word),
-      // ]).then(([translation, description]) => {
-      //   this.setTranslationValue(translation.data.translatedText);
-      //   this.setWordData(description.data);
-      //   console.log(toJS(this.wordData));
-      // });
     } catch (error) {
       console.error('Error fetching translation:', error);
+    }
+  };
+
+  getWordDescription = async (word: string) => {
+    try {
+      await getWordDescription(word).then((description) => {
+        this.setWordData(description.data);
+        console.log(toJS(this.wordData));
+      });
+    } catch (error) {
+      console.error('Error fetching word description', error);
     }
   };
 
@@ -64,6 +69,10 @@ class TranslationStore {
 
   handleTextAreaValueChange = (value: string) => {
     this.textAreaValue = value;
+  };
+
+  hanldeOtherMeaningsVisibility = () => {
+    this.isShowOtherMeanings = !this.isShowOtherMeanings;
   };
 }
 
