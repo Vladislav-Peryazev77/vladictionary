@@ -1,38 +1,17 @@
-import { makeAutoObservable, toJS } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 import { getWordDescription } from '../../api/requests/getWordDescription/getWordDescription';
-
-export interface Phonetic {
-  text: string;
-  audio?: string;
-}
-
-export interface Definition {
-  definition: string;
-  example: string;
-  synonyms: string[];
-  antonyms: string[];
-}
-
-export interface Meaning {
-  partOfSpeech: string;
-  definitions: Definition[];
-  synonyms: string[];
-}
-
-export interface WordData {
-  word: string;
-  phonetic?: string;
-  phonetics?: Phonetic[];
-  origin?: string;
-  meanings: Meaning[];
-}
-
+import { WordData } from '../../types/translationTypes/translationTypes';
+import axios from 'axios';
 class TranslationStore {
   translationValue = '';
-  wordData: WordData[] = [];
+  wordData: WordData = {};
+  otherMeaningsWordData: WordData[] = [];
   textAreaValue = '';
   isShowOtherMeanings = false;
+  translationRequestError: string | boolean = '';
+  decriptionRequestError: string | boolean = '';
+  isOtherMeanings = true;
 
   constructor() {
     makeAutoObservable(this);
@@ -40,22 +19,29 @@ class TranslationStore {
 
   getTextTranslation = async (word: string) => {
     try {
-      await getTranslation(word).then((translation) =>
-        this.setTranslationValue(translation.data.translatedText),
-      );
+      await getTranslation(word).then((translation) => {
+        this.setTranslationValue(translation.data.translatedText);
+        this.setTranslationRequestError(false);
+      });
     } catch (error) {
-      console.error('Error fetching translation:', error);
+      if (axios.isAxiosError(error)) {
+        this.setTranslationRequestError(error.response?.data.error);
+      }
     }
   };
 
   getWordDescription = async (word: string) => {
     try {
       await getWordDescription(word).then((description) => {
-        this.setWordData(description.data);
-        console.log(toJS(this.wordData));
+        this.setDescriptionRequestError(false);
+        this.setWordData(description.data.shift());
+        this.setOtherMeaningsWordData(description.data);
       });
     } catch (error) {
-      console.error('Error fetching word description', error);
+      this.setWordData({});
+      if (axios.isAxiosError(error)) {
+        this.setDescriptionRequestError(error.response?.data.message);
+      }
     }
   };
 
@@ -63,8 +49,25 @@ class TranslationStore {
     this.translationValue = value;
   };
 
-  setWordData = (data: WordData[]) => {
+  setWordData = (data: WordData) => {
     this.wordData = data;
+  };
+
+  setOtherMeaningsWordData = (data: WordData[]) => {
+    data.shift();
+    this.otherMeaningsWordData = data.filter((item) =>
+      item.meanings?.some((meaning) =>
+        meaning.definitions.some((definition) => definition.example),
+      ),
+    );
+  };
+
+  setTranslationRequestError = (error: string | boolean) => {
+    this.translationRequestError = error;
+  };
+
+  setDescriptionRequestError = (error: string | boolean) => {
+    this.decriptionRequestError = error;
   };
 
   handleTextAreaValueChange = (value: string) => {

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import TranslationStore from '../../stores/TranslationStore/TranslationStore';
-import { WordData } from '../../stores/TranslationStore/TranslationStore';
-import { Box, Button } from '@chakra-ui/react';
+import { WordData } from '../../types/translationTypes/translationTypes';
+import { Box, Button, Collapse, Text, useDisclosure } from '@chakra-ui/react';
 import { TranslationForm } from './components/TranslationForm';
 import { TranslationWordBlock } from './components/TranslationWordBlock';
 import { TranslationText } from './components/TranslationText';
@@ -12,9 +12,14 @@ export const Translation = observer(() => {
     translationValue,
     wordData,
     isShowOtherMeanings,
+    translationRequestError,
+    decriptionRequestError,
+    otherMeaningsWordData,
+    isOtherMeanings,
     hanldeOtherMeaningsVisibility,
   } = TranslationStore;
 
+  const { isOpen, onToggle } = useDisclosure();
   return (
     <>
       <Box
@@ -34,22 +39,39 @@ export const Translation = observer(() => {
           <TranslationForm />
           {wordData && (
             <TranslationWordBlock
-              data={wordData?.find(
-                (data: WordData, index: number) => index === 0,
-              )}
+              data={wordData}
+              isOtherMeanings={isOtherMeanings}
             />
           )}
-          {isShowOtherMeanings &&
-            wordData.map((data: WordData, index: number) => (
-              <TranslationWordBlock data={data} key={index} />
-            ))}
-          {wordData.length > 1 ? (
-            <Button onClick={() => hanldeOtherMeaningsVisibility()}>
+
+          <Collapse in={isOpen} animateOpacity>
+            {isShowOtherMeanings &&
+              otherMeaningsWordData.map((data: WordData, index: number) => (
+                <TranslationWordBlock
+                  key={index}
+                  data={data}
+                  isOtherMeanings={!isOtherMeanings}
+                />
+              ))}
+          </Collapse>
+          {otherMeaningsWordData.length >= 1 ? (
+            <Button
+              onClick={() => {
+                hanldeOtherMeaningsVisibility();
+                onToggle();
+              }}
+            >
               {isShowOtherMeanings
                 ? 'Close other meanings ⬆️'
                 : 'Show other meanings ⬇️'}
             </Button>
           ) : null}
+          {decriptionRequestError && (
+            <Text color="red">{decriptionRequestError}</Text>
+          )}
+          {translationRequestError && (
+            <Text color="red">{translationRequestError}</Text>
+          )}
         </Box>
         <TranslationText>{translationValue}</TranslationText>
       </Box>

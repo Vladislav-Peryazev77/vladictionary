@@ -1,5 +1,20 @@
-import { MyAxiosInstance } from '../../axiosInstances/WordDescriptionAxiousIntance/WordDescriptionAxiousIntance';
+import { descriptionIntance } from '../../axiosInstances/WordDescriptionAxiousIntance/WordDescriptionAxiousIntance';
+import { createWordDescriptionApiUrlAgrs } from './createWordDescriptionApiUrlArgs';
 
-export function getWordDescription(word: string) {
-  return MyAxiosInstance.get(`${word}`);
+interface GetWordDescriptionConfig {
+  version?: string;
+  language?: string;
 }
+
+export const getWordDescription = (
+  word: string,
+  config?: GetWordDescriptionConfig,
+) => {
+  return descriptionIntance.get(
+    createWordDescriptionApiUrlAgrs({
+      word,
+      language: config?.language || 'en',
+      version: config?.version || 'v2',
+    }),
+  );
+};

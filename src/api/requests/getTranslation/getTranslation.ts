@@ -1,7 +1,7 @@
-import { intance } from '../../axiosInstances/TranslationAxiousIntance/TranslationAxiosIntance';
+import { translationIntance } from '../../axiosInstances/TranslationAxiousIntance/TranslationAxiosIntance';
 
 export function getTranslation(word: string) {
-  return intance.post('translate', {
+  return translationIntance.post('translate', {
     q: word,
     source: 'en',
     target: 'ru',

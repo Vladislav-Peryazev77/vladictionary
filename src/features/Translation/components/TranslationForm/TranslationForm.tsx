@@ -14,7 +14,6 @@ export const TranslationForm = observer(() => {
     event.preventDefault();
     getTextTranslation(textAreaValue);
     getWordDescription(textAreaValue);
-    handleTextAreaValueChange('');
   };
 
   return (

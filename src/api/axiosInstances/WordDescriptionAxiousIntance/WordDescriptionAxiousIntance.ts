@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const MyAxiosInstance = axios.create({
-  baseURL: 'https://api.dictionaryapi.dev/api/v2/entries/en/',
+export const descriptionIntance = axios.create({
+  baseURL: 'https://api.dictionaryapi.dev/api/',
 });
