@@ -3,7 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 import { getWordDescription } from '../../api/requests/getWordDescription/getWordDescription';
-import { WordData } from '../../types/translationTypes/translationTypes';
+import {
+  Meaning,
+  WordData,
+} from '../../types/translationTypes/translationTypes';
 
 class TranslationStore {
   translationValue = '';
@@ -87,7 +90,11 @@ class TranslationStore {
       })),
     }));
 
-    this.otherMeaningsWordData = meaningsWithoutFirst;
+    this.otherMeaningsWordData = meaningsWithoutFirst.filter((item) =>
+      item.meanings?.some((meaning: Meaning) =>
+        meaning.definitions.some((definition) => definition.example),
+      ),
+    );
   };
 
   setTranslationRequestError = (error: string | boolean) => {
