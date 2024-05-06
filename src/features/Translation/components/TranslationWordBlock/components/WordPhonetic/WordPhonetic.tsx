@@ -1,3 +1,4 @@
+import { toJS } from 'mobx';
 import {
   Phonetic,
   Meaning,
@@ -17,6 +18,9 @@ export const WordPhonetic = ({
   meanings,
   isOtherMeaings,
 }: WordPhoneticProps) => {
+  let audio = phonetics?.find((phonetic) => phonetic.audio)?.audio;
+  let phoneticAudio = new Audio(audio);
+
   if (isOtherMeaings) {
     return (
       <>
@@ -31,7 +35,7 @@ export const WordPhonetic = ({
           <Text fontSize="25px" textTransform="capitalize">
             {word}
           </Text>
-          <button>
+          <button onClick={() => phoneticAudio.play()}>
             <img src="src/assets/icons/pronunciation-icon.svg" />
           </button>
         </Box>

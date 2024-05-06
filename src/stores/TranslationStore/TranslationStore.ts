@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
@@ -46,6 +46,8 @@ class TranslationStore {
         this.setDescriptionRequestError(false);
         this.setWordData(description.data[0]);
         this.setOtherMeaningsWordData(description.data);
+        console.log(toJS(this.wordData));
+        console.log(toJS(this.otherMeaningsWordData));
       });
     } catch (error) {
       this.setWordData({});
@@ -60,7 +62,7 @@ class TranslationStore {
   };
 
   setWordData = (data: WordData) => {
-    this.wordData = data;
+    this.wordData = { id: uuidv4(), ...data };
   };
 
   setOtherMeaningsWordData = (data: WordData[]) => {
