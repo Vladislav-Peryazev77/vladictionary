@@ -1,7 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import TranslationStore from '../../stores/TranslationStore/TranslationStore';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  Box,
+  Text,
+} from '@chakra-ui/react';
 import { WordData } from '../../types/translationTypes/translationTypes';
-import { Box, Button, Collapse, Text, useDisclosure } from '@chakra-ui/react';
 import { TranslationForm } from './components/TranslationForm';
 import { TranslationWordBlock } from './components/TranslationWordBlock';
 import { TranslationText } from './components/TranslationText';
@@ -11,15 +18,12 @@ export const Translation = observer(() => {
   const {
     translationValue,
     wordData,
-    isShowOtherMeanings,
     translationRequestError,
     decriptionRequestError,
     otherMeaningsWordData,
     isOtherMeanings,
-    hanldeOtherMeaningsVisibility,
   } = TranslationStore;
 
-  const { isOpen, onToggle } = useDisclosure();
   return (
     <>
       <Box
@@ -28,6 +32,7 @@ export const Translation = observer(() => {
         borderRadius="10px"
         marginBottom="15px"
         flexDirection={['column', 'column', 'row']}
+        maxWidth="1200px"
       >
         <Box
           borderRight={['none', 'none', 'solid 0.5px white']}
@@ -37,35 +42,41 @@ export const Translation = observer(() => {
           flexBasis="50%"
         >
           <TranslationForm />
-          {wordData && (
-            <TranslationWordBlock
-              data={wordData}
-              isOtherMeanings={isOtherMeanings}
-            />
+          {wordData && <TranslationWordBlock data={wordData} />}
+          {otherMeaningsWordData.length >= 1 && (
+            <Accordion allowMultiple>
+              <AccordionItem border="none">
+                {({ isExpanded }) => (
+                  <>
+                    <AccordionPanel pb={4} padding={0}>
+                      {otherMeaningsWordData.map((data: WordData) => (
+                        <TranslationWordBlock
+                          key={data.id}
+                          data={data}
+                          isOtherMeanings
+                        />
+                      ))}
+                    </AccordionPanel>
+                    <h2>
+                      <AccordionButton
+                        border="none"
+                        width="auto"
+                        bgColor="white"
+                        _hover={{ bg: '#E2E8F0' }}
+                        borderRadius="0.375rem"
+                      >
+                        {isExpanded ? (
+                          <Box>Close other meanings ⬆️</Box>
+                        ) : (
+                          <Box>Show other meanings ⬇️</Box>
+                        )}
+                      </AccordionButton>
+                    </h2>
+                  </>
+                )}
+              </AccordionItem>
+            </Accordion>
           )}
-
-          <Collapse in={isOpen} animateOpacity>
-            {isShowOtherMeanings &&
-              otherMeaningsWordData.map((data: WordData, index: number) => (
-                <TranslationWordBlock
-                  key={index}
-                  data={data}
-                  isOtherMeanings={!isOtherMeanings}
-                />
-              ))}
-          </Collapse>
-          {otherMeaningsWordData.length >= 1 ? (
-            <Button
-              onClick={() => {
-                hanldeOtherMeaningsVisibility();
-                onToggle();
-              }}
-            >
-              {isShowOtherMeanings
-                ? 'Close other meanings ⬆️'
-                : 'Show other meanings ⬇️'}
-            </Button>
-          ) : null}
           {decriptionRequestError && (
             <Text color="red">{decriptionRequestError}</Text>
           )}

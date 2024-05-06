@@ -1,14 +1,13 @@
 import { makeAutoObservable } from 'mobx';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 import { getWordDescription } from '../../api/requests/getWordDescription/getWordDescription';
 import { WordData } from '../../types/translationTypes/translationTypes';
-import axios from 'axios';
 class TranslationStore {
   translationValue = '';
   wordData: WordData = {};
   otherMeaningsWordData: WordData[] = [];
-  textAreaValue = '';
-  isShowOtherMeanings = false;
   translationRequestError: string | boolean = '';
   decriptionRequestError: string | boolean = '';
   isOtherMeanings = true;
@@ -34,7 +33,7 @@ class TranslationStore {
     try {
       await getWordDescription(word).then((description) => {
         this.setDescriptionRequestError(false);
-        this.setWordData(description.data.shift());
+        this.setWordData(description.data[0]);
         this.setOtherMeaningsWordData(description.data);
       });
     } catch (error) {
@@ -54,8 +53,11 @@ class TranslationStore {
   };
 
   setOtherMeaningsWordData = (data: WordData[]) => {
-    data.shift();
-    this.otherMeaningsWordData = data.filter((item) =>
+    const meaningsWithoutFirst = data.slice(1).map((item) => ({
+      id: uuidv4(),
+      ...item,
+    }));
+    this.otherMeaningsWordData = meaningsWithoutFirst.filter((item) =>
       item.meanings?.some((meaning) =>
         meaning.definitions.some((definition) => definition.example),
       ),
@@ -68,14 +70,6 @@ class TranslationStore {
 
   setDescriptionRequestError = (error: string | boolean) => {
     this.decriptionRequestError = error;
-  };
-
-  handleTextAreaValueChange = (value: string) => {
-    this.textAreaValue = value;
-  };
-
-  hanldeOtherMeaningsVisibility = () => {
-    this.isShowOtherMeanings = !this.isShowOtherMeanings;
   };
 }
 

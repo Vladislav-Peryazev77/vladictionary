@@ -5,7 +5,7 @@ import { WordContextExamples } from './components/WordContextExamples';
 import { Box } from '@chakra-ui/react';
 
 interface TranslationWordBlockProps {
-  data?: WordData;
+  data: WordData;
   isOtherMeanings?: boolean;
 }
 
@@ -22,7 +22,7 @@ export const TranslationWordBlock = ({
         isOtherMeaings={isOtherMeanings}
       />
       <WordSynonyms meanings={data?.meanings} />
-      <WordContextExamples meanings={data?.meanings} />
+      <WordContextExamples meanings={data?.meanings} id={data.id} />
     </Box>
   );
 };

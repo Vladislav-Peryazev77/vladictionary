@@ -22,4 +22,5 @@ export type WordData = {
   phonetics?: Phonetic[];
   origin?: string;
   meanings?: Meaning[];
+  id?: string;
 };
