@@ -11,6 +11,8 @@ class TranslationStore {
   translationRequestError: string | boolean = '';
   decriptionRequestError: string | boolean = '';
   isOtherMeanings = true;
+  originalLanguage: string = 'en';
+  translatedLanguage: string = 'ru';
 
   constructor() {
     makeAutoObservable(this);
@@ -18,7 +20,11 @@ class TranslationStore {
 
   getTextTranslation = async (word: string) => {
     try {
-      await getTranslation(word).then((translation) => {
+      await getTranslation(
+        word,
+        this.originalLanguage,
+        this.translatedLanguage,
+      ).then((translation) => {
         this.setTranslationValue(translation.data.translatedText);
         this.setTranslationRequestError(false);
       });
@@ -30,6 +36,11 @@ class TranslationStore {
   };
 
   getWordDescription = async (word: string) => {
+    if (this.originalLanguage != 'en') {
+      this.setWordData({});
+      this.setOtherMeaningsWordData([]);
+      return null;
+    }
     try {
       await getWordDescription(word).then((description) => {
         this.setDescriptionRequestError(false);
@@ -70,6 +81,14 @@ class TranslationStore {
 
   setDescriptionRequestError = (error: string | boolean) => {
     this.decriptionRequestError = error;
+  };
+
+  setOriginalLanguage = (language: string) => {
+    this.originalLanguage = language;
+  };
+
+  setTranslatedLanguage = (language: string) => {
+    this.translatedLanguage = language;
   };
 }
 
