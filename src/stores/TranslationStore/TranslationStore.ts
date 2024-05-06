@@ -60,7 +60,7 @@ class TranslationStore {
   };
 
   setWordData = (data: WordData) => {
-    this.wordData = data;
+    this.wordData = { id: uuidv4(), ...data };
   };
 
   setOtherMeaningsWordData = (data: WordData[]) => {
