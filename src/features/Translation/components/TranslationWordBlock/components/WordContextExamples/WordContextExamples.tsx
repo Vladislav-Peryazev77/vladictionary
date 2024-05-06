@@ -3,13 +3,9 @@ import { Text } from '@chakra-ui/react';
 
 interface WordContextExamplesProps {
   meanings?: Meaning[];
-  id?: string;
 }
 
-export const WordContextExamples = ({
-  meanings,
-  id,
-}: WordContextExamplesProps) => {
+export const WordContextExamples = ({ meanings }: WordContextExamplesProps) => {
   return (
     <>
       {meanings?.map((meaning) =>
@@ -19,7 +15,7 @@ export const WordContextExamples = ({
               borderLeft="solid 5px #a35beb"
               paddingLeft="15px"
               marginBottom="7px"
-              key={id}
+              key={definition.id}
             >
               <i>{definition.example}</i>
               <br />

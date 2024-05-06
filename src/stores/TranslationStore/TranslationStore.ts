@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getTranslation } from '../../api/requests/getTranslation/getTranslation';
 import { getWordDescription } from '../../api/requests/getWordDescription/getWordDescription';
 import { WordData } from '../../types/translationTypes/translationTypes';
+
 class TranslationStore {
   translationValue = '';
   wordData: WordData = {};
@@ -60,19 +61,33 @@ class TranslationStore {
   };
 
   setWordData = (data: WordData) => {
-    this.wordData = { id: uuidv4(), ...data };
+    const dataWithDefinitionIds = {
+      ...data,
+      meanings: data.meanings?.map((meaning: any) => ({
+        ...meaning,
+        definitions: meaning.definitions.map((definition: any) => ({
+          ...definition,
+          id: uuidv4(),
+        })),
+      })),
+    };
+    this.wordData = dataWithDefinitionIds;
   };
 
   setOtherMeaningsWordData = (data: WordData[]) => {
-    const meaningsWithoutFirst = data.slice(1).map((item) => ({
+    const meaningsWithoutFirst = data.slice(1).map((dataObj: any) => ({
+      ...dataObj,
       id: uuidv4(),
-      ...item,
+      meanings: dataObj.meanings.map((meaning: any) => ({
+        ...meaning,
+        definitions: meaning.definitions.map((definition: any) => ({
+          ...definition,
+          id: uuidv4(),
+        })),
+      })),
     }));
-    this.otherMeaningsWordData = meaningsWithoutFirst.filter((item) =>
-      item.meanings?.some((meaning) =>
-        meaning.definitions.some((definition) => definition.example),
-      ),
-    );
+
+    this.otherMeaningsWordData = meaningsWithoutFirst;
   };
 
   setTranslationRequestError = (error: string | boolean) => {

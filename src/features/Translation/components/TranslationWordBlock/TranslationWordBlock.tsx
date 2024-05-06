@@ -22,7 +22,7 @@ export const TranslationWordBlock = ({
         isOtherMeaings={isOtherMeanings}
       />
       <WordSynonyms meanings={data?.meanings} />
-      <WordContextExamples meanings={data?.meanings} id={data.id} />
+      <WordContextExamples meanings={data?.meanings} />
     </Box>
   );
 };

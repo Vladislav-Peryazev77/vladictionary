@@ -8,6 +8,7 @@ export type Definition = {
   example: string;
   synonyms: string[];
   antonyms: string[];
+  id: string;
 };
 
 export type Meaning = {
