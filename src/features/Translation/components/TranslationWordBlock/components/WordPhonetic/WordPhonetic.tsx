@@ -1,4 +1,3 @@
-import { toJS } from 'mobx';
 import {
   Phonetic,
   Meaning,
@@ -18,8 +17,9 @@ export const WordPhonetic = ({
   meanings,
   isOtherMeaings,
 }: WordPhoneticProps) => {
-  let audio = phonetics?.find((phonetic) => phonetic.audio)?.audio;
-  let phoneticAudio = new Audio(audio);
+  let phoneticAudio = new Audio(
+    `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${word}--_gb_1.mp3`,
+  );
 
   if (isOtherMeaings) {
     return (
