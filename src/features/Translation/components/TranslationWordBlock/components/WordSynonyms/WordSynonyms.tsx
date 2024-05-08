@@ -1,8 +1,5 @@
 import { Text } from '@chakra-ui/react';
-import {
-  Definition,
-  Meaning,
-} from '../../../../../../stores/TranslationStore/TranslationStore';
+import { Meaning } from '../../../../../../types/translationTypes/translationTypes';
 
 interface WordSynonymsProps {
   meanings?: Meaning[];

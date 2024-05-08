@@ -9,7 +9,7 @@ export const WordContextExamples = ({ meanings }: WordContextExamplesProps) => {
   return (
     <>
       {meanings?.map((meaning) =>
-        meaning?.definitions.map((definition) =>
+        meaning.definitions.map((definition) =>
           definition.definition && definition.example ? (
             <Text
               borderLeft="solid 5px #a35beb"

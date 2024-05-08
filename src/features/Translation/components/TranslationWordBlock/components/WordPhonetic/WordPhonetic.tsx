@@ -37,8 +37,8 @@ export const WordPhonetic = ({
         </Box>
       )}
       <Text marginBottom="20px">
-        {meanings && meanings.map((meaning) => meaning.partOfSpeech).join(', ')}
-        {phonetics && phonetics?.find((phonetic) => phonetic.text)?.text}
+        {meanings && meanings.map((meaning) => meaning.partOfSpeech).join(', ')}{' '}
+        {phonetics && phonetics.find((phonetic) => phonetic.text)?.text}
       </Text>
     </Box>
   );

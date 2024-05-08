@@ -1,6 +1,6 @@
 export type Phonetic = {
   text: string;
-  audio?: string;
+  audio: string;
 };
 
 export type Definition = {

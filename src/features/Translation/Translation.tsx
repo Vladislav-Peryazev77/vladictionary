@@ -57,7 +57,7 @@ export const Translation = observer(() => {
                         />
                       ))}
                     </AccordionPanel>
-                    <h2>
+                    <Box>
                       <AccordionButton
                         border="none"
                         width="auto"
@@ -71,7 +71,7 @@ export const Translation = observer(() => {
                           <Box>Show other meanings ⬇️</Box>
                         )}
                       </AccordionButton>
-                    </h2>
+                    </Box>
                   </>
                 )}
               </AccordionItem>

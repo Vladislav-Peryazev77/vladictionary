@@ -16,13 +16,13 @@ export const TranslationWordBlock = ({
   return (
     <Box marginBottom="30px">
       <WordPhonetic
-        phonetics={data?.phonetics}
-        word={data?.word}
-        meanings={data?.meanings}
+        phonetics={data.phonetics}
+        word={data.word}
+        meanings={data.meanings}
         isOtherMeaings={isOtherMeanings}
       />
-      <WordSynonyms meanings={data?.meanings} />
-      <WordContextExamples meanings={data?.meanings} />
+      <WordSynonyms meanings={data.meanings} />
+      <WordContextExamples meanings={data.meanings} />
     </Box>
   );
 };
