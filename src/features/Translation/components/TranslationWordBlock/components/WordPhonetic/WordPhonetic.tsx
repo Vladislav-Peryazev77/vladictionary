@@ -17,6 +17,10 @@ export const WordPhonetic = ({
   meanings,
   isOtherMeaings,
 }: WordPhoneticProps) => {
+  let phoneticAudio = new Audio(
+    `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${word}--_gb_1.mp3`,
+  );
+
   if (isOtherMeaings) {
     return (
       <>
@@ -31,14 +35,14 @@ export const WordPhonetic = ({
           <Text fontSize="25px" textTransform="capitalize">
             {word}
           </Text>
-          <button>
+          <button onClick={() => phoneticAudio.play()}>
             <img src="src/assets/icons/pronunciation-icon.svg" />
           </button>
         </Box>
       )}
       <Text marginBottom="20px">
-        {meanings && meanings.map((meaning) => meaning.partOfSpeech).join(', ')}{' '}
-        {phonetics && phonetics.find((phonetic) => phonetic.text)?.text}
+        {meanings && meanings.map((meaning) => meaning.partOfSpeech).join(', ')}
+        {phonetics && phonetics?.find((phonetic) => phonetic.text)?.text}
       </Text>
     </Box>
   );
