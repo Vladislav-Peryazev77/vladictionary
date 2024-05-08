@@ -17,7 +17,7 @@ export const WordPhonetic = ({
   meanings,
   isOtherMeaings,
 }: WordPhoneticProps) => {
-  let phoneticAudio = new Audio(
+  const phoneticAudio = new Audio(
     `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${word}--_gb_1.mp3`,
   );
 
