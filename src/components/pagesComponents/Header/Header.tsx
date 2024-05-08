@@ -1,21 +1,33 @@
-import { Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
     <>
-      <Text
+      <Box
         bgColor="#ca9ff5"
         color="#9433f5"
-        padding="15px 30px"
+        padding={['5px', '10px', '15px 30px']}
         justifyContent="space-between"
         display="flex"
-        fontSize="30px"
+        fontSize={['15px', '15px', '25px', '30px']}
+        alignItems="center"
       >
         ~vladictionary
-        <button>
-          <img width="35px" src="src/assets/icons/navbar-icon.svg" />
-        </button>
-      </Text>
+        <Box
+          display="flex"
+          gap="5px"
+          fontSize={['15px', '15px', '20px', '25px']}
+        >
+          <Box _hover={{ textDecoration: 'underline' }}>
+            <Link to="/">Translation</Link>
+          </Box>
+          {' | '}
+          <Box _hover={{ textDecoration: 'underline' }}>
+            <Link to="/dictionary">Dictionary</Link>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };
