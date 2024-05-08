@@ -18,10 +18,10 @@ export type Meaning = {
 };
 
 export type WordData = {
-  word?: string;
-  phonetic?: string;
-  phonetics?: Phonetic[];
-  origin?: string;
-  meanings?: Meaning[];
-  id?: string;
+  word: string;
+  phonetic: string;
+  phonetics: Phonetic[];
+  origin: string;
+  meanings: Meaning[];
+  id: string;
 };

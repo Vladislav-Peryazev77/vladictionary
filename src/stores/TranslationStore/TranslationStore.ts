@@ -10,7 +10,7 @@ import {
 
 class TranslationStore {
   translationValue = '';
-  wordData: WordData = {};
+  wordData: WordData = {} as WordData;
   otherMeaningsWordData: WordData[] = [];
   translationRequestError: string | boolean = '';
   decriptionRequestError: string | boolean = '';
@@ -41,7 +41,7 @@ class TranslationStore {
 
   getWordDescription = async (word: string) => {
     if (this.originalLanguage != 'en') {
-      this.setWordData({});
+      this.setWordData({} as WordData);
       this.setOtherMeaningsWordData([]);
       return null;
     }
@@ -52,7 +52,7 @@ class TranslationStore {
         this.setOtherMeaningsWordData(description.data);
       });
     } catch (error) {
-      this.setWordData({});
+      this.setWordData({} as WordData);
       if (axios.isAxiosError(error)) {
         this.setDescriptionRequestError(error.response?.data.message);
       }
