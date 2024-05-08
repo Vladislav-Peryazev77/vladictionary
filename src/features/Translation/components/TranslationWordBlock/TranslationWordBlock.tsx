@@ -1,31 +1,28 @@
+import { WordData } from '../../../../types/translationTypes/translationTypes';
 import { WordPhonetic } from './components/WordPhonetic';
 import { WordSynonyms } from './components/WordSynonyms';
 import { WordContextExamples } from './components/WordContextExamples';
+import { Box } from '@chakra-ui/react';
 
 interface TranslationWordBlockProps {
-  word: string;
-  partOfSpeech: string;
-  phonetic: string;
-  synonyms: string[];
-  examples: string[];
+  data: WordData;
+  isOtherMeanings?: boolean;
 }
 
 export const TranslationWordBlock = ({
-  word,
-  partOfSpeech,
-  phonetic,
-  synonyms,
-  examples,
+  data,
+  isOtherMeanings,
 }: TranslationWordBlockProps) => {
   return (
-    <>
+    <Box marginBottom="30px">
       <WordPhonetic
-        word={word}
-        partOfSpeech={partOfSpeech}
-        phonetic={phonetic}
+        phonetics={data.phonetics}
+        word={data.word}
+        meanings={data.meanings}
+        isOtherMeaings={isOtherMeanings}
       />
-      <WordSynonyms synonyms={synonyms} />
-      <WordContextExamples examples={examples} />
-    </>
+      <WordSynonyms meanings={data.meanings} />
+      <WordContextExamples meanings={data.meanings} />
+    </Box>
   );
 };
