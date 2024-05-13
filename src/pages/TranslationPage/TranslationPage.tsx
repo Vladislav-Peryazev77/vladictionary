@@ -21,7 +21,7 @@ export const TranslationPage = () => {
         w="100%"
         maxWidth="1200px"
         color="#fff"
-        maxHeight="88%"
+        maxHeight="88dvh"
       >
         <Translation />
       </Box>

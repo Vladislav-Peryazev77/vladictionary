@@ -43,6 +43,7 @@ export const Translation = observer(() => {
         >
           <TranslationForm />
           {wordData && <TranslationWordBlock data={wordData} />}
+
           {otherMeaningsWordData.length >= 1 && (
             <Accordion allowMultiple>
               <AccordionItem border="none">
