@@ -3,9 +3,15 @@ import React, { useState } from 'react';
 
 interface RegistrationInputProps {
   text: string;
+  value: string;
+  onChange: () => void;
 }
 
-export const RegistrationInput = ({ text }: RegistrationInputProps) => {
+export const RegistrationInput = ({
+  text,
+  value,
+  onChange,
+}: RegistrationInputProps) => {
   const [inputFocused, setInputFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -32,9 +38,10 @@ export const RegistrationInput = ({ text }: RegistrationInputProps) => {
         paddingX="0"
         color="#fff"
         onFocus={handleInputFocus}
-        onBlur={handleEmailBlur}
+        onBlur={() => setInputFocused((prevState) => !prevState)}
         onChange={handleEmailChange}
         _focus={{ boxShadow: 'none' }}
+        value={value}
       />
       <FormLabel
         position="absolute"
