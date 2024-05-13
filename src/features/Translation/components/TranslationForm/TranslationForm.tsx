@@ -19,7 +19,12 @@ export const TranslationForm = observer(() => {
       <FormControl display="flex" gap="10px" marginBottom="30px">
         <Textarea
           maxLength={2000}
+          maxHeight="200px"
           onChange={(event) => setTextAreaValue(event.target.value)}
+          _focusVisible={{
+            boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.5)',
+            borderColor: '#fff',
+          }}
         />
         <Button type="submit">Translate</Button>
       </FormControl>
