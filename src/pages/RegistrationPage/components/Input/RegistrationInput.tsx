@@ -9,17 +9,10 @@ export const RegistrationInput = ({ text }: RegistrationInputProps) => {
   const [inputFocused, setInputFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  const handleInputFocus = () => {
-    setInputFocused(true);
-  };
-
-  const handleEmailBlur = () => {
-    setInputFocused(false);
-  };
-
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
+
   return (
     <Box
       position="relative"
@@ -31,8 +24,8 @@ export const RegistrationInput = ({ text }: RegistrationInputProps) => {
         outline="none"
         paddingX="0"
         color="#fff"
-        onFocus={handleInputFocus}
-        onBlur={handleEmailBlur}
+        onFocus={() => setInputFocused(true)}
+        onBlur={() => setInputFocused((prevState) => !prevState)}
         onChange={handleEmailChange}
         _focus={{ boxShadow: 'none' }}
       />
