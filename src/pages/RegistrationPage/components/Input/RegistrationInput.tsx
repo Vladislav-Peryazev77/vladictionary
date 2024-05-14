@@ -8,19 +8,8 @@ interface RegistrationInputProps {
   inputValue: string;
 }
 
-export const RegistrationInput = ({ labelText }: RegistrationInputProps) => {
-
-  text: string;
-  value: string;
-  onChange: () => void;
-}
-
-export const RegistrationInput = ({
-  text,
-  value,
-  onChange,
-}: RegistrationInputProps) => {
->>>>>>> 1c11f68 (initial commit)
+export const RegistrationInput = observer(
+  ({ labelText, onChange, inputValue }: RegistrationInputProps) => {
     const [inputFocused, setInputFocused] = useState(false);
 
     return (
@@ -34,10 +23,14 @@ export const RegistrationInput = ({
           outline="none"
           paddingX="0"
           color="#fff"
-          onFocus={() => setInputFocused(true)}
-          onBlur={() => setInputFocused((prevState) => !prevState)}
+          onFocus={onInputFocus}
+          onBlur={onInputBlur}
           onChange={(event) => onChange(event.target.value)}
-          _focus={{ boxShadow: 'none' }}
+          sx={{
+            '&:focus': {
+              boxShadow: 'none',
+            },
+          }}
           value={inputValue}
         />
         <FormLabel
@@ -50,7 +43,7 @@ export const RegistrationInput = ({
           pointerEvents="none"
           transition="all 0.5s ease"
         >
-          {text}
+          {labelText}
         </FormLabel>
       </Box>
     );
