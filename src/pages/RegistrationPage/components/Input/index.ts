@@ -1,1 +1,0 @@
-export { RegistrationInput } from './RegistrationInput';
