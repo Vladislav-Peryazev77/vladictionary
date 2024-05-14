@@ -15,6 +15,7 @@ export const RegistrationPage = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      // zIndex={-1}
     >
       <Box
         position="relative"
@@ -35,8 +36,8 @@ export const RegistrationPage = () => {
               <Text fontSize="35px" textAlign="center" color="#FFF">
                 Login
               </Text>
-              <RegistrationInput text="Email" />
-              <RegistrationInput text="Password" />
+              <RegistrationInput labelText="Email" />
+              <RegistrationInput labelText="Password" />
               <Button>Submit</Button>
             </FormControl>
           </form>

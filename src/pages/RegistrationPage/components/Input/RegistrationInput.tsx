@@ -2,15 +2,23 @@ import { Box, FormLabel, Input } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 interface RegistrationInputProps {
-  text: string;
+  labelText: string;
 }
 
-export const RegistrationInput = ({ text }: RegistrationInputProps) => {
+export const RegistrationInput = ({ labelText }: RegistrationInputProps) => {
   const [inputFocused, setInputFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+  };
+
+  const onInputFocus = () => {
+    setInputFocused(true);
+  };
+
+  const onInputBlur = () => {
+    setInputFocused((prevState) => !prevState);
   };
 
   return (
@@ -24,10 +32,14 @@ export const RegistrationInput = ({ text }: RegistrationInputProps) => {
         outline="none"
         paddingX="0"
         color="#fff"
-        onFocus={() => setInputFocused(true)}
-        onBlur={() => setInputFocused((prevState) => !prevState)}
+        onFocus={onInputFocus}
+        onBlur={onInputBlur}
         onChange={handleEmailChange}
-        _focus={{ boxShadow: 'none' }}
+        sx={{
+          '&:focus': {
+            boxShadow: 'none',
+          },
+        }}
       />
       <FormLabel
         position="absolute"
@@ -39,7 +51,7 @@ export const RegistrationInput = ({ text }: RegistrationInputProps) => {
         pointerEvents="none"
         transition="all 0.5s ease"
       >
-        {text}
+        {labelText}
       </FormLabel>
     </Box>
   );
