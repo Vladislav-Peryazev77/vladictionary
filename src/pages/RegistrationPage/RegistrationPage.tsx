@@ -15,7 +15,6 @@ export const RegistrationPage = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      // zIndex={-1}
     >
       <Box
         position="relative"
