@@ -8,8 +8,19 @@ interface RegistrationInputProps {
   inputValue: string;
 }
 
-export const RegistrationInput = observer(
-  ({ text, onChange, inputValue }: RegistrationInputProps) => {
+export const RegistrationInput = ({ labelText }: RegistrationInputProps) => {
+
+  text: string;
+  value: string;
+  onChange: () => void;
+}
+
+export const RegistrationInput = ({
+  text,
+  value,
+  onChange,
+}: RegistrationInputProps) => {
+>>>>>>> 1c11f68 (initial commit)
     const [inputFocused, setInputFocused] = useState(false);
 
     return (
