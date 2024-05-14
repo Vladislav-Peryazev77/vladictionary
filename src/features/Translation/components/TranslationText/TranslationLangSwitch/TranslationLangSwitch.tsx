@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { Box, Select } from '@chakra-ui/react';
-import TranslationStore from '../../../../stores/TranslationStore/TranslationStore';
+import TranslationStore from '../../../../../stores/TranslationStore/TranslationStore';
 
 interface Language {
   code: string;

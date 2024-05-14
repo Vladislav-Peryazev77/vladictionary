@@ -12,7 +12,7 @@ import { WordData } from '../../types/translationTypes/translationTypes';
 import { TranslationForm } from './components/TranslationForm';
 import { TranslationWordBlock } from './components/TranslationWordBlock';
 import { TranslationText } from './components/TranslationText';
-import { TranslationLangSwitch } from './components/TranslationLangSwitch';
+import { TranslationLangSwitch } from './components/TranslationText/TranslationLangSwitch';
 
 export const Translation = observer(() => {
   const {

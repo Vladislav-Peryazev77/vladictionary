@@ -21,9 +21,11 @@ export const TranslationForm = observer(() => {
           maxLength={2000}
           maxHeight="200px"
           onChange={(event) => setTextAreaValue(event.target.value)}
-          _focusVisible={{
-            boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.5)',
-            borderColor: '#fff',
+          sx={{
+            '&:focus': {
+              boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.5)',
+              borderColor: '#fff',
+            },
           }}
         />
         <Button type="submit">Translate</Button>
