@@ -1,0 +1,1 @@
+export { WordSynonyms } from './WordSynonyms';
