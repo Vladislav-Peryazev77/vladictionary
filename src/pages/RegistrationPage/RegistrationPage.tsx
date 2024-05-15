@@ -1,7 +1,20 @@
+import { observer } from 'mobx-react-lite';
 import { Box, Button, FormControl, Text } from '@chakra-ui/react';
+import RegistrationStore from '../../stores/RegistrationStore/RegistrationStore';
+
 import { RegistrationInput } from './components/Input';
 
-export const RegistrationPage = () => {
+export const RegistrationPage = observer(() => {
+  const {
+    username,
+    password,
+    handleUserNameValueChange,
+    handlePasswordValueChange,
+    handleUserLogIn,
+    handleUserLogOut,
+    currentUser,
+  } = RegistrationStore;
+
   return (
     <Box
       position="absolute"
@@ -16,32 +29,51 @@ export const RegistrationPage = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box
-        position="relative"
-        maxWidth="420px"
-        width="100%"
-        minHeight="450px"
-        display="flex"
-        padding="40px 20px"
-        justifyContent="center"
-        alignItems="center"
-        border="2px solid #ffffff80"
-        borderRadius="20px"
-        backdropFilter="blur(8px)"
-      >
-        <Box width="100%">
-          <form action="">
-            <FormControl display="flex" flexDirection="column" gap="40px">
-              <Text fontSize="35px" textAlign="center" color="#FFF">
-                Login
-              </Text>
-              <RegistrationInput labelText="Email" />
-              <RegistrationInput labelText="Password" />
-              <Button>Submit</Button>
-            </FormControl>
-          </form>
+      {currentUser === null && (
+        <Box
+          position="relative"
+          maxWidth="420px"
+          width="100%"
+          minHeight="450px"
+          display="flex"
+          padding="40px 20px"
+          justifyContent="center"
+          alignItems="center"
+          border="2px solid #ffffff80"
+          borderRadius="20px"
+          backdropFilter="blur(8px)"
+        >
+          <Box width="100%">
+            <form action="" onSubmit={(event) => handleUserLogIn(event)}>
+              <FormControl display="flex" flexDirection="column" gap="40px">
+                <Text fontSize="35px" textAlign="center" color="#FFF">
+                  Login
+                </Text>
+                <RegistrationInput
+                  labelText="UserName"
+                  onChange={handleUserNameValueChange}
+                  inputValue={username}
+                />
+                <RegistrationInput
+                  labelText="Password"
+                  onChange={handlePasswordValueChange}
+                  inputValue={password}
+                />
+                <Button type="submit">Submit</Button>
+              </FormControl>
+            </form>
+          </Box>
         </Box>
-      </Box>
+      )}
+      {currentUser !== null && (
+        <Box display="flex" flexDirection="column" gap="20px">
+          <Text
+            color="#fff"
+            fontSize="30px"
+          >{`Hello ${currentUser.get('username')}!`}</Text>
+          <Button onClick={() => handleUserLogOut()}>Log Out</Button>
+        </Box>
+      )}
     </Box>
   );
-};
+});

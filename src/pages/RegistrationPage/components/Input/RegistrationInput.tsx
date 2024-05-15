@@ -1,58 +1,59 @@
 import { Box, FormLabel, Input } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useState } from 'react';
 
 interface RegistrationInputProps {
   labelText: string;
+  onChange: (value: string) => void;
+  inputValue: string;
 }
 
-export const RegistrationInput = ({ labelText }: RegistrationInputProps) => {
-  const [inputFocused, setInputFocused] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+export const RegistrationInput = observer(({ labelText, onChange, inputValue }: RegistrationInputProps) => {
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+    const [inputFocused, setInputFocused] = useState(false);
 
-  const onInputFocus = () => {
-    setInputFocused(true);
-  };
+    const onInputFocus = () => {
+      setInputFocused(true);
+    };
 
-  const onInputBlur = () => {
-    setInputFocused((prevState) => !prevState);
-  };
+    const onInputBlur = () => {
+      setInputFocused((prevState) => !prevState);
+    };
 
-  return (
-    <Box
-      position="relative"
-      borderBottom={`2px solid ${inputFocused || inputValue ? '#fff' : '#ffffff80'}`}
-    >
-      <Input
-        background="transparent"
-        border="none"
-        outline="none"
-        paddingX="0"
-        color="#fff"
-        onFocus={onInputFocus}
-        onBlur={onInputBlur}
-        onChange={handleEmailChange}
-        sx={{
-          '&:focus': {
-            boxShadow: 'none',
-          },
-        }}
-      />
-      <FormLabel
-        position="absolute"
-        top={inputFocused || inputValue ? '-15px' : '50%'}
-        transform={
-          inputFocused || inputValue ? 'translateY(0)' : 'translateY(-50%)'
-        }
-        color={inputFocused || inputValue ? '#fff' : '#ffffff80'}
-        pointerEvents="none"
-        transition="all 0.5s ease"
+    return (
+      <Box
+        position="relative"
+        borderBottom={`2px solid ${inputFocused || inputValue ? '#fff' : '#ffffff80'}`}
       >
-        {labelText}
-      </FormLabel>
-    </Box>
-  );
-};
+        <Input
+          background="transparent"
+          border="none"
+          outline="none"
+          paddingX="0"
+          color="#fff"
+          onFocus={onInputFocus}
+          onBlur={onInputBlur}
+          onChange={(event) => onChange(event.target.value)}
+          sx={{
+            '&:focus': {
+              boxShadow: 'none',
+            },
+          }}
+          value={inputValue}
+        />
+        <FormLabel
+          position="absolute"
+          top={inputFocused || inputValue ? '-15px' : '50%'}
+          transform={
+            inputFocused || inputValue ? 'translateY(0)' : 'translateY(-50%)'
+          }
+          color={inputFocused || inputValue ? '#fff' : '#ffffff80'}
+          pointerEvents="none"
+          transition="all 0.5s ease"
+        >
+          {labelText}
+        </FormLabel>
+      </Box>
+    );
+  },
+);

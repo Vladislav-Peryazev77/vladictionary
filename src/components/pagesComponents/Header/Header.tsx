@@ -1,8 +1,6 @@
 import {
   Box,
   Text,
-  keyframes,
-  usePrefersReducedMotion,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { createNeonAnimation } from './animations/createNeonAnimation';
