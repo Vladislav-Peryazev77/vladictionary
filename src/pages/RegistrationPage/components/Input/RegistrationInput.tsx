@@ -15,6 +15,14 @@ export const RegistrationInput = observer(
 
     const [inputFocused, setInputFocused] = useState(false);
 
+    const onInputFocus = () => {
+      setInputFocused(true);
+    };
+  
+    const onInputBlur = () => {
+      setInputFocused((prevState) => !prevState);
+    };
+
     return (
       <Box
         position="relative"
@@ -46,7 +54,7 @@ export const RegistrationInput = observer(
           pointerEvents="none"
           transition="all 0.5s ease"
         >
-          {labelText}
+          {text}
         </FormLabel>
       </Box>
     );
