@@ -13,8 +13,9 @@ export const RegistrationPage = observer(() => {
     handleUserLogIn,
     handleUserLogOut,
     currentUser,
+    getCurrentUser,
   } = RegistrationStore;
-
+  getCurrentUser()
   return (
     <Box
       position="absolute"
