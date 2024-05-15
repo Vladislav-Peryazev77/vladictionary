@@ -1,15 +1,10 @@
 import { observer } from 'mobx-react-lite';
-// import Parse from 'parse/dist/parse.min.js';
 import { Box, Button, FormControl, Text } from '@chakra-ui/react';
 import RegistrationStore from '../../stores/RegistrationStore/RegistrationStore';
 
 import { RegistrationInput } from './components/Input';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const RegistrationPage = observer(() => {
-  // const [currentUser, setCurrentUser] = useState<Parse.Object | null>(null);
-
   const {
     username,
     password,
@@ -19,79 +14,6 @@ export const RegistrationPage = observer(() => {
     handleUserLogOut,
     currentUser,
   } = RegistrationStore;
-
-  const navigate = useNavigate();
-
-  // const handleUserLogIn = async function (
-  //   event: React.FormEvent<HTMLFormElement>,
-  // ): Promise<boolean> {
-  //   event.preventDefault();
-  //   try {
-  //     const loggedInUser: Parse.User = await Parse.User.logIn(
-  //       username,
-  //       password,
-  //     );
-  //     alert(
-  //       `Success! User ${loggedInUser.get('username')} has successfully signed in!`,
-  //     );
-
-  //     // const currentUser: Parse.User = await Parse.User.current();
-
-  //     handleUserNameValueChange('');
-  //     handlePasswordValueChange('');
-
-  //     getCurrentUser();
-  //     // navigate('/');
-  //     return true;
-  //   } catch (error: any) {
-  //     alert(`Error! ${error.message}`);
-  //     return false;
-  //   }
-  // };
-
-  // const getCurrentUser = async function (): Promise<Parse.User | null> {
-  //   const currentUser: Parse.User | null = await Parse.User.current();
-
-  //   setCurrentUser(currentUser);
-  //   return currentUser;
-  // };
-
-  // const handleUserLogOut = async function (): Promise<boolean> {
-  //   try {
-  //     await Parse.User.logOut();
-
-  //     const currentUser: Parse.User = await Parse.User.current();
-  //     if (currentUser === null) {
-  //       alert('Success! No user is logged in anymore!');
-  //     }
-
-  //     getCurrentUser();
-  //     return true;
-  //   } catch (error: any) {
-  //     alert(`Error! ${error.message}`);
-  //     return false;
-  //   }
-  // };
-
-  // оставил, чтобы ты чисто код доки глянул, я хз . . . .
-  // const handleUserRegistration = async function (
-  //   event: React.FormEvent<HTMLFormElement>,
-  // ): Promise<boolean> {
-  //   event.preventDefault();
-  //   try {
-  //     const createdUser: Parse.User = await Parse.User.signUp(
-  //       username,
-  //       password,
-  //     );
-  //     alert(
-  //       `Success! User ${createdUser.getUsername()} was successfully created!`,
-  //     );
-  //     return true;
-  //   } catch (error: any) {
-  //     alert(`Error! ${error}`);
-  //     return false;
-  //   }
-  // };
 
   return (
     <Box
@@ -128,12 +50,12 @@ export const RegistrationPage = observer(() => {
                   Login
                 </Text>
                 <RegistrationInput
-                  text="UserName"
+                  labelText="UserName"
                   onChange={handleUserNameValueChange}
                   inputValue={username}
                 />
                 <RegistrationInput
-                  text="Password"
+                  labelText="Password"
                   onChange={handlePasswordValueChange}
                   inputValue={password}
                 />

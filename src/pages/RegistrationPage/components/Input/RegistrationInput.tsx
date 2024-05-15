@@ -3,15 +3,12 @@ import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 
 interface RegistrationInputProps {
-  text: string;
+  labelText: string;
   onChange: (value: string) => void;
   inputValue: string;
 }
 
-export const RegistrationInput = observer(
-
-
-  ({ text, onChange, inputValue }: RegistrationInputProps) => {
+export const RegistrationInput = observer(({ labelText, onChange, inputValue }: RegistrationInputProps) => {
 
     const [inputFocused, setInputFocused] = useState(false);
 
@@ -54,7 +51,7 @@ export const RegistrationInput = observer(
           pointerEvents="none"
           transition="all 0.5s ease"
         >
-          {text}
+          {labelText}
         </FormLabel>
       </Box>
     );
