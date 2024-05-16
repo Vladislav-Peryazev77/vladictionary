@@ -38,7 +38,7 @@ class RegistrationStore {
       this.handlePasswordValueChange('');
 
       this.getCurrentUser();
-      // navigate('/');
+      // navigate('/'); стоит ли после успешного логина переносить сразу на главную страницу???
       return true;
     } catch (error: any) {
       alert(`Error! ${error.message}`);
