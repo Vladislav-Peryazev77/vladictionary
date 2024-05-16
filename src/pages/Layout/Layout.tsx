@@ -18,8 +18,6 @@ export const Layout = ({ children }: PropsWithChildren) => {
         justifyContent="center"
         flexGrow={1}
         bgColor='#000'
-        // paddingX={[0, 0, '30px']}
-        // paddingY={['10px', '10px', '30px']}
       >
         {children}
       </Box>
