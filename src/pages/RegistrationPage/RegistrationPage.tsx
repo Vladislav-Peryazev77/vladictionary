@@ -16,8 +16,6 @@ export const RegistrationPage = observer(() => {
   } = RegistrationStore;
   return (
     <Box
-      position="absolute"
-      top="0px"
       bgImage="url('src/assets/images/bg-registration-page.jpg')"
       width="100%"
       bgSize="cover"
@@ -41,6 +39,7 @@ export const RegistrationPage = observer(() => {
           border="2px solid #ffffff80"
           borderRadius="20px"
           backdropFilter="blur(8px)"
+          marginX='10px'
         >
           <Box width="100%">
             <form action="" onSubmit={(event) => handleUserLogIn(event)}>
