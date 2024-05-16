@@ -1,16 +1,15 @@
-import { Alert } from '@chakra-ui/alert';
 import { makeAutoObservable } from 'mobx';
 import Parse from 'parse/dist/parse.min.js';
+import { User } from '../../types/registrationTypes/registrationTypes';
 class RegistrationStore {
   username: string = '';
   password: string = '';
-  currentUser: Parse.Object | null = null;
+  currentUser: User = null;
 
+
+  
   constructor() {
     makeAutoObservable(this);
-    // if(this.currentUser === null) {
-    //   this.getCurrentUser()
-    // }
   }
 
   handleUserNameValueChange = (value: string) => {
@@ -47,18 +46,13 @@ class RegistrationStore {
     }
   };
 
-  getCurrentUser = async (): Promise<Parse.User | null> => {
+  getCurrentUser = async (): Promise<User> => {
     const currentUser: Parse.User | null = await Parse.User.current();
-    // if (currentUser !== null) {
-    //   alert(
-    //     `Success! ${currentUser.get('username')} is the current user!`
-    //   )
-    // }
     this.setCurrentUser(currentUser)
     return currentUser;
   };
 
-  setCurrentUser = (user: Parse.User | null) => {
+  setCurrentUser = (user: User) => {
     this.currentUser = user;
   }
 

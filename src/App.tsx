@@ -1,22 +1,33 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import RegistrationStore from './stores/RegistrationStore/RegistrationStore';
+import { parseInitialize } from './parse/parseInitialize';
+
 import { Layout } from './pages/Layout';
 import { TranslationPage } from './pages/TranslationPage';
 import { DictionaryPage } from './pages/DictionaryPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { RegistrationPage } from './pages/RegistrationPage';
-import Parse from 'parse/dist/parse.min.js';
+import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute/ProtectedRoute';
 
-const PARSE_APPLICATION_ID = 'nO6xzt06z9UGj3hAyecHBIZu8YniuzMTGu5js1mx';
-const PARSE_HOST_URL = 'https://parseapi.back4app.com/';
-const PARSE_JAVASCRIPT_KEY = 'B96U6NR5ZFXdctL8XH1uR82sfWC5KkjVLFREqUJz';
-Parse.initialize(PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY);
-Parse.serverURL = PARSE_HOST_URL;
+
+
+parseInitialize()
 
 export const App = () => {
+  const { currentUser, getCurrentUser} = RegistrationStore;
+
+  useEffect(() => {
+  
+  if(currentUser === null) {
+    getCurrentUser();
+  }
+  }, [])
+
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<TranslationPage />} />
+        <Route path="/" element={<ProtectedRoute><TranslationPage/></ProtectedRoute>} />
         <Route path="/dictionary" element={<DictionaryPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<RegistrationPage />} />
