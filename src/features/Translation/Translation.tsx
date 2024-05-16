@@ -33,6 +33,7 @@ export const Translation = observer(() => {
         marginBottom="15px"
         flexDirection={['column', 'column', 'row']}
         maxWidth="1200px"
+        
       >
         <Box
           borderRight={['none', 'none', 'solid 0.5px white']}
@@ -40,6 +41,13 @@ export const Translation = observer(() => {
           padding="15px 25px"
           minHeight="350px"
           flexBasis="50%"
+          maxHeight='70dvh'
+          overflow='auto'
+          sx={{
+            '&::-webkit-scrollbar': {
+              display: 'none'
+            }
+          }}
         >
           <TranslationForm />
           {wordData && <TranslationWordBlock data={wordData} />}

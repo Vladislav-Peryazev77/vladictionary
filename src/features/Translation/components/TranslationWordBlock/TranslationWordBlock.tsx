@@ -14,7 +14,7 @@ export const TranslationWordBlock = ({
   isOtherMeanings,
 }: TranslationWordBlockProps) => {
   return (
-    <Box marginBottom="30px">
+    <Box marginBottom="30px" >
       <WordPhonetic
         phonetics={data.phonetics}
         word={data.word}

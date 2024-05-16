@@ -16,7 +16,9 @@ export const Header = observer(() => {
         display="flex"
         fontSize={['15px', '15px', '25px', '30px']}
         alignItems="center"
-        zIndex={2}
+        // zIndex={2}
+        position='absolute'
+        width='100%'
       >
         <Text animation={createNeonAnimation()}>~vladictionary</Text>
         <Box
