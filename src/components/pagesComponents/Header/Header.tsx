@@ -1,11 +1,12 @@
-import {
-  Box,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { createNeonAnimation } from './animations/createNeonAnimation';
+import { observer } from 'mobx-react-lite';
+import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
 
-export const Header = () => {
+export const Header = observer(() => {
+  const { currentUser, handleUserLogOut } = RegistrationStore;
+
   return (
     <>
       <Box
@@ -22,6 +23,7 @@ export const Header = () => {
           display="flex"
           gap="5px"
           fontSize={['15px', '15px', '20px', '25px']}
+          alignItems="center"
         >
           <Box _hover={{ textDecoration: 'underline' }}>
             <Link to="/">Translation</Link>
@@ -30,8 +32,16 @@ export const Header = () => {
           <Box _hover={{ textDecoration: 'underline' }}>
             <Link to="/dictionary">Dictionary</Link>
           </Box>
+          {currentUser && (
+            <>
+              {' | '}
+              <button onClick={handleUserLogOut}>
+                <img src="src/assets/icons/logout-icon.svg" />
+              </button>
+            </>
+          )}
         </Box>
       </Box>
     </>
   );
-};
+});

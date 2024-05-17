@@ -10,24 +10,28 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { RegistrationPage } from './pages/RegistrationPage';
 import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute/ProtectedRoute';
 
-
-
-parseInitialize()
+parseInitialize();
 
 export const App = () => {
-  const { currentUser, getCurrentUser} = RegistrationStore;
+  const { currentUser, getCurrentUser } = RegistrationStore;
 
   useEffect(() => {
-  
-  if(currentUser === null) {
-    getCurrentUser();
-  }
-  }, [])
+    if (currentUser === null) {
+      getCurrentUser();
+    }
+  }, []);
 
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<ProtectedRoute><TranslationPage/></ProtectedRoute>} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <TranslationPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/dictionary" element={<DictionaryPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<RegistrationPage />} />

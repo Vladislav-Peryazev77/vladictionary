@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { Box, Button, FormControl, Text } from '@chakra-ui/react';
 import RegistrationStore from '../../stores/RegistrationStore/RegistrationStore';
+import { useNavigate } from 'react-router-dom';
 
 import { RegistrationInput } from './components/Input';
+import { useEffect } from 'react';
 
 export const RegistrationPage = observer(() => {
   const {
@@ -11,9 +13,17 @@ export const RegistrationPage = observer(() => {
     handleUserNameValueChange,
     handlePasswordValueChange,
     handleUserLogIn,
-    handleUserLogOut,
     currentUser,
   } = RegistrationStore;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser !== null) {
+      navigate('/');
+    }
+  }, [currentUser]);
+
   return (
     <Box
       position="absolute"
@@ -43,7 +53,7 @@ export const RegistrationPage = observer(() => {
           backdropFilter="blur(8px)"
         >
           <Box width="100%">
-            <form action="" onSubmit={(event) => handleUserLogIn(event)}>
+            <form action="">
               <FormControl display="flex" flexDirection="column" gap="40px">
                 <Text fontSize="35px" textAlign="center" color="#FFF">
                   Login
@@ -58,19 +68,12 @@ export const RegistrationPage = observer(() => {
                   onChange={handlePasswordValueChange}
                   inputValue={password}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="button" onClick={handleUserLogIn}>
+                  Submit
+                </Button>
               </FormControl>
             </form>
           </Box>
-        </Box>
-      )}
-      {currentUser !== null && (
-        <Box display="flex" flexDirection="column" gap="20px">
-          <Text
-            color="#fff"
-            fontSize="30px"
-          >{`Hello ${currentUser.get('username')}!`}</Text>
-          <Button onClick={() => handleUserLogOut()}>Log Out</Button>
         </Box>
       )}
     </Box>

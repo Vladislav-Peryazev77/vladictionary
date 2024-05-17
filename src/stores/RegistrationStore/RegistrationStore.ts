@@ -1,13 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import Parse from 'parse/dist/parse.min.js';
 import { User } from '../../types/registrationTypes/registrationTypes';
+
 class RegistrationStore {
   username: string = '';
   password: string = '';
   currentUser: User = null;
 
-
-  
   constructor() {
     makeAutoObservable(this);
   }
@@ -20,58 +19,51 @@ class RegistrationStore {
     this.password = value;
   };
 
-  handleUserLogIn = async  (
-    event: React.FormEvent<HTMLFormElement>,
-  ): Promise<boolean> => {
-    event.preventDefault();
+  clearLoginFields = () => {
+    this.handleUserNameValueChange('');
+    this.handlePasswordValueChange('');
+  };
+
+  handleUserLogIn = async (): Promise<boolean> => {
     try {
       const loggedInUser: Parse.User = await Parse.User.logIn(
         this.username,
         this.password,
       );
-      alert(
-        `Success! User ${loggedInUser.get('username')} has successfully signed in!`,
-      );
 
-
-      this.handleUserNameValueChange('');
-      this.handlePasswordValueChange('');
+      this.clearLoginFields();
 
       this.getCurrentUser();
-      // navigate('/'); стоит ли после успешного логина переносить сразу на главную страницу???
       return true;
     } catch (error: any) {
-      alert(`Error! ${error.message}`);
+      console.log(`Error! ${error.message}`);
       return false;
     }
   };
 
   getCurrentUser = async (): Promise<User> => {
     const currentUser: Parse.User | null = await Parse.User.current();
-    this.setCurrentUser(currentUser)
+    this.setCurrentUser(currentUser);
     return currentUser;
   };
 
   setCurrentUser = (user: User) => {
     this.currentUser = user;
-  }
+  };
 
   handleUserLogOut = async () => {
     try {
       await Parse.User.logOut();
 
       const currentUser: Parse.User = await Parse.User.current();
-      if (currentUser === null) {
-        alert('Success! No user is logged in anymore!');
-      }
 
       this.getCurrentUser();
       return true;
     } catch (error: any) {
-      alert(`Error! ${error.message}`);
+      console.log(`Error! ${error.message}`);
       return false;
     }
-  }
+  };
 }
 
 export default new RegistrationStore();

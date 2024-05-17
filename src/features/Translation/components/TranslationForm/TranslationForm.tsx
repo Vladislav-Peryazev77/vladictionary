@@ -25,9 +25,8 @@ export const TranslationForm = observer(() => {
             '&:focus': {
               boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.5)',
               borderColor: '#fff',
-            }
+            },
           }}
-        
         />
         <Button type="submit">Translate</Button>
       </FormControl>
