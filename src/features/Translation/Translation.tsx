@@ -43,6 +43,7 @@ export const Translation = observer(() => {
         >
           <TranslationForm />
           {wordData && <TranslationWordBlock data={wordData} />}
+
           {otherMeaningsWordData.length >= 1 && (
             <Accordion allowMultiple>
               <AccordionItem border="none">
@@ -64,6 +65,7 @@ export const Translation = observer(() => {
                         bgColor="white"
                         _hover={{ bg: '#E2E8F0' }}
                         borderRadius="0.375rem"
+                        color="#000"
                       >
                         {isExpanded ? (
                           <Box>Close other meanings ⬆️</Box>
