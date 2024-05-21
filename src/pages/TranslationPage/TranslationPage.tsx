@@ -4,11 +4,9 @@ import { Translation } from '../../features/Translation';
 export const TranslationPage = () => {
   return (
     <Box
-      position="absolute"
-      width="100vw"
-      height="100dvh"
+      width="100%"
+      height="100%"
       bgImage="url('src/assets/images/bg-translation-page.jpg')"
-      top="0px"
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -18,7 +16,7 @@ export const TranslationPage = () => {
         border="2px solid #ffffff80"
         borderRadius="20px"
         backdropFilter="blur(12px)"
-        w="100%"
+        width="100%"
         maxWidth="1200px"
         color="#fff"
         maxHeight="88dvh"
