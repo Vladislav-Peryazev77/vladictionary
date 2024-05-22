@@ -43,6 +43,7 @@ class TranslationStore {
     if (this.originalLanguage != 'en') {
       this.setWordData({} as WordData);
       this.setOtherMeaningsWordData([]);
+      this.setDescriptionRequestError(false);
       return null;
     }
     try {
@@ -53,8 +54,12 @@ class TranslationStore {
       });
     } catch (error) {
       this.setWordData({} as WordData);
+      this.setOtherMeaningsWordData([]);
       if (axios.isAxiosError(error)) {
-        this.setDescriptionRequestError(error.response?.data.message);
+        const errorText = error.response?.data.message
+          ? error.response?.data.message
+          : 'Something went wrong, please try later';
+        this.setDescriptionRequestError(errorText);
       }
     }
   };

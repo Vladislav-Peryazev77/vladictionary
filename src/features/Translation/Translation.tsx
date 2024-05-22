@@ -7,6 +7,9 @@ import {
   AccordionPanel,
   Box,
   Text,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { WordData } from '../../types/translationTypes/translationTypes';
 import { TranslationForm } from './components/TranslationForm';
@@ -33,7 +36,6 @@ export const Translation = observer(() => {
         marginBottom="15px"
         flexDirection={['column', 'column', 'row']}
         maxWidth="1200px"
-        
       >
         <Box
           borderRight={['none', 'none', 'solid 0.5px white']}
@@ -41,12 +43,12 @@ export const Translation = observer(() => {
           padding="15px 25px"
           minHeight="350px"
           flexBasis="50%"
-          maxHeight='70dvh'
-          overflow='auto'
+          maxHeight="70dvh"
+          overflow="auto"
           sx={{
             '&::-webkit-scrollbar': {
-              display: 'none'
-            }
+              display: 'none',
+            },
           }}
         >
           <TranslationForm />
@@ -88,7 +90,10 @@ export const Translation = observer(() => {
             </Accordion>
           )}
           {decriptionRequestError && (
-            <Text color="red">{decriptionRequestError}</Text>
+            <Alert status="error" variant="solid" borderRadius="15px">
+              <AlertIcon />
+              <AlertDescription>{decriptionRequestError}</AlertDescription>
+            </Alert>
           )}
           {translationRequestError && (
             <Text color="red">{translationRequestError}</Text>
