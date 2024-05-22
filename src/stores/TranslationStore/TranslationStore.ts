@@ -117,10 +117,6 @@ class TranslationStore {
   setTranslatedLanguage = (language: string) => {
     this.translatedLanguage = language;
   };
-
-  handleIsOtherMeaning = () => {
-    this.isOtherMeanings = false;
-  };
 }
 
 export default new TranslationStore();
