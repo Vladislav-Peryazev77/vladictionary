@@ -32,7 +32,14 @@ export const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/dictionary" element={<DictionaryPage />} />
+        <Route
+          path="/dictionary"
+          element={
+            <ProtectedRoute>
+              <DictionaryPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<RegistrationPage />} />
       </Routes>

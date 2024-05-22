@@ -7,6 +7,8 @@ export const TranslationPage = () => {
       width="100%"
       height="100%"
       bgImage="url('src/assets/images/bg-translation-page.jpg')"
+      bgRepeat="no-repeat"
+      bgSize="cover"
       display="flex"
       justifyContent="center"
       alignItems="center"
