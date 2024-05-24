@@ -1,7 +1,7 @@
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
 import { AnswerVariant } from './components/AnswerVariant';
 
-export const QuizText = () => {
+export const QuizTest = () => {
   return (
     <Box
       maxWidth="1100px"
