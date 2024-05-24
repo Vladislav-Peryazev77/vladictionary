@@ -1,0 +1,1 @@
+export { AnswerVariant } from './AnswerVariant';

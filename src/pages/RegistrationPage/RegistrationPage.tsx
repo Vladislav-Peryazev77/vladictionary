@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { RegistrationInput } from './components/Input';
 import { useEffect } from 'react';
+import { PageWrapper } from '../../components/pagesComponents/PageWrapper';
 
 export const RegistrationPage = observer(() => {
   const {
@@ -25,17 +26,7 @@ export const RegistrationPage = observer(() => {
   }, [currentUser]);
 
   return (
-    <Box
-      bgImage="url('src/assets/images/bg-registration-page.jpg')"
-      width="100%"
-      bgSize="cover"
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      height="100%"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
+    <PageWrapper url="src/assets/images/bg-registration-page.jpg">
       {currentUser === null && (
         <Box
           position="relative"
@@ -49,7 +40,7 @@ export const RegistrationPage = observer(() => {
           border="2px solid #ffffff80"
           borderRadius="20px"
           backdropFilter="blur(8px)"
-          marginX='10px'
+          marginX="10px"
         >
           <Box width="100%">
             <form action="">
@@ -75,6 +66,6 @@ export const RegistrationPage = observer(() => {
           </Box>
         </Box>
       )}
-    </Box>
+    </PageWrapper>
   );
 });
