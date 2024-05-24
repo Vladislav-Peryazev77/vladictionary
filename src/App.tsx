@@ -9,6 +9,7 @@ import { DictionaryPage } from './pages/DictionaryPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { RegistrationPage } from './pages/RegistrationPage';
 import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute/ProtectedRoute';
+import { AdminPanelPage } from './pages/AdminPanelPage';
 
 parseInitialize();
 
@@ -42,6 +43,7 @@ export const App = () => {
         />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<RegistrationPage />} />
+        <Route path="/admin-panel" element={<AdminPanelPage />} />
       </Routes>
     </Layout>
   );
