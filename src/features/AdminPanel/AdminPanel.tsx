@@ -22,7 +22,6 @@ export const AdminPanel = observer(() => {
       audio: phoneticAudio,
       correctAnswer: correctAnswer,
     });
-
     setQuestionArray(quizWordData);
   };
   return (
