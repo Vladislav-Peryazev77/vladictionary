@@ -1,9 +1,27 @@
 import { Button } from '@chakra-ui/react';
 
-export const AnswerVariant = () => {
+interface AnswerVariantProps {
+  answer: string;
+  index: number;
+  selectedAnswerIndex: number;
+  onClick: (answer: string, index: number) => void;
+}
+
+export const AnswerVariant = ({
+  answer,
+  onClick,
+  index,
+  selectedAnswerIndex,
+}: AnswerVariantProps) => {
+  // const currentAnswer = ;
   return (
-    <Button fontSize={['16px', '16px', '20px', '20px']}>
-      NIFTY50 ₹ 17,356, -0.31%
+    <Button
+      fontSize={['16px', '16px', '20px', '20px']}
+      onClick={() => onClick(answer, index)}
+      bgColor={`${selectedAnswerIndex == index ? 'grey' : 'none'}`}
+      _hover={{ bgColor: 'none' }}
+    >
+      {answer}
     </Button>
   );
 };

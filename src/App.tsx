@@ -4,12 +4,13 @@ import RegistrationStore from './stores/RegistrationStore/RegistrationStore';
 import { parseInitialize } from './parse/parseInitialize';
 
 import { Layout } from './pages/Layout';
+import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute/ProtectedRoute.tsx';
 import { TranslationPage } from './pages/TranslationPage';
-import { DictionaryPage } from './pages/DictionaryPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { RegistrationPage } from './pages/RegistrationPage';
-import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute/ProtectedRoute';
 import { AdminPanelPage } from './pages/AdminPanelPage';
+import { DictionaryPage } from './pages/DictionaryPage';
+import { ProtectedAdminPanelRoute } from './pages/AdminPanelPage/components/ProtectedAdminPanelRoute';
 
 parseInitialize();
 
@@ -43,7 +44,14 @@ export const App = () => {
         />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<RegistrationPage />} />
-        <Route path="/admin-panel" element={<AdminPanelPage />} />
+        <Route
+          path="/admin-panel"
+          element={
+            <ProtectedAdminPanelRoute>
+              <AdminPanelPage />
+            </ProtectedAdminPanelRoute>
+          }
+        />
       </Routes>
     </Layout>
   );

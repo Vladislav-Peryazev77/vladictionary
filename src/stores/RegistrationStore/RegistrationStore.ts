@@ -6,6 +6,7 @@ class RegistrationStore {
   username: string = '';
   password: string = '';
   currentUser: User = null;
+  currentUserId: string = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -33,7 +34,9 @@ class RegistrationStore {
 
       this.clearLoginFields();
 
+      this.getCurrentUserId();
       this.getCurrentUser();
+
       return true;
     } catch (error: any) {
       console.log(`Error! ${error.message}`);
@@ -47,8 +50,18 @@ class RegistrationStore {
     return currentUser;
   };
 
+  getCurrentUserId = async (): Promise<User> => {
+    const currentUserId: string = await Parse.User.current()?.id;
+    this.setCurrentUserId(currentUserId);
+    return currentUserId;
+  };
+
   setCurrentUser = (user: User) => {
     this.currentUser = user;
+  };
+
+  setCurrentUserId = (id: string) => {
+    this.currentUserId = id;
   };
 
   handleUserLogOut = async () => {
@@ -58,6 +71,7 @@ class RegistrationStore {
       const currentUser: Parse.User = await Parse.User.current();
 
       this.getCurrentUser();
+      this.setCurrentUserId('');
       return true;
     } catch (error: any) {
       console.log(`Error! ${error.message}`);

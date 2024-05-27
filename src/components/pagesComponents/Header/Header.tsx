@@ -5,8 +5,9 @@ import { observer } from 'mobx-react-lite';
 import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
 
 export const Header = observer(() => {
-  const { currentUser, handleUserLogOut } = RegistrationStore;
-
+  const { currentUser, handleUserLogOut, currentUserId, getCurrentUserId } =
+    RegistrationStore;
+  getCurrentUserId();
   return (
     <>
       <Box
@@ -33,6 +34,12 @@ export const Header = observer(() => {
           <Box _hover={{ textDecoration: 'underline' }}>
             <Link to="/dictionary">Dictionary</Link>
           </Box>
+          {currentUserId === 'aZ08EgqfHC' && (
+            <>
+              {' | '}
+              <Link to={'/admin-panel'}>A</Link>
+            </>
+          )}
           {currentUser && (
             <>
               {' | '}

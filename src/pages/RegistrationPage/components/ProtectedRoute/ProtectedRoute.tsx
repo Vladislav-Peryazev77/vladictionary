@@ -6,6 +6,7 @@ import RegistrationStore from '../../../../stores/RegistrationStore/Registration
 export const ProtectedRoute = observer(({ children }: PropsWithChildren) => {
   const { currentUser, getCurrentUser } = RegistrationStore;
   getCurrentUser();
+
   if (!currentUser) {
     return <Navigate to="/login" replace />;
   }
