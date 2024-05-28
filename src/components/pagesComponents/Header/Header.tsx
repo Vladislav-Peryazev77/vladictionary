@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom';
 import { createNeonAnimation } from './animations/createNeonAnimation';
 import { observer } from 'mobx-react-lite';
 import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
+import { useEffect } from 'react';
 
 export const Header = observer(() => {
-  const { currentUser, handleUserLogOut, currentUserId, getCurrentUserId } =
+  const { currentUser, handleUserLogOut, currentUserId, getCurrentUser } =
     RegistrationStore;
-  getCurrentUserId();
+  useEffect(() => {
+    if (currentUser === null) {
+      getCurrentUser();
+    }
+  }, []);
   return (
     <>
       <Box

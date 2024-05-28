@@ -5,8 +5,8 @@ import { Navigate } from 'react-router';
 
 export const ProtectedAdminPanelRoute = observer(
   ({ children }: PropsWithChildren) => {
-    const { getCurrentUserId, currentUserId } = RegistrationStore;
-    getCurrentUserId();
+    const { currentUserId } = RegistrationStore;
+    // getCurrentUser();
     if (
       currentUserId &&
       currentUserId.length > 0 &&

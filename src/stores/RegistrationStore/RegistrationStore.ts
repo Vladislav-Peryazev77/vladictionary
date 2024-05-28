@@ -27,14 +27,11 @@ class RegistrationStore {
 
   handleUserLogIn = async (): Promise<boolean> => {
     try {
-      const loggedInUser: Parse.User = await Parse.User.logIn(
-        this.username,
-        this.password,
-      );
+      await Parse.User.logIn(this.username, this.password);
 
       this.clearLoginFields();
 
-      this.getCurrentUserId();
+      // this.getCurrentUserId();
       this.getCurrentUser();
 
       return true;
@@ -46,12 +43,17 @@ class RegistrationStore {
 
   getCurrentUser = async (): Promise<User> => {
     const currentUser: Parse.User | null = await Parse.User.current();
-    this.setCurrentUser(currentUser);
-    return currentUser;
+    if (currentUser !== null) {
+      this.setCurrentUser(currentUser);
+      this.setCurrentUserId(currentUser.id);
+      return;
+    }
+    this.setCurrentUser(null);
+    this.setCurrentUserId('');
   };
 
   getCurrentUserId = async (): Promise<User> => {
-    const currentUserId: string = await Parse.User.current()?.id;
+    const currentUserId: string = await Parse.User.current()?.id; // лишний запрос
     this.setCurrentUserId(currentUserId);
     return currentUserId;
   };
@@ -67,15 +69,9 @@ class RegistrationStore {
   handleUserLogOut = async () => {
     try {
       await Parse.User.logOut();
-
-      const currentUser: Parse.User = await Parse.User.current();
-
       this.getCurrentUser();
-      this.setCurrentUserId('');
-      return true;
     } catch (error: any) {
       console.log(`Error! ${error.message}`);
-      return false;
     }
   };
 }
