@@ -4,13 +4,13 @@ import RegistrationStore from './stores/RegistrationStore/RegistrationStore';
 import { parseInitialize } from './parse/parseInitialize';
 
 import { Layout } from './pages/Layout';
-import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute/ProtectedRoute.tsx';
 import { TranslationPage } from './pages/TranslationPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { RegistrationPage } from './pages/RegistrationPage';
 import { AdminPanelPage } from './pages/AdminPanelPage';
 import { DictionaryPage } from './pages/DictionaryPage';
 import { ProtectedAdminPanelRoute } from './pages/AdminPanelPage/components/ProtectedAdminPanelRoute';
+import { ProtectedRoute } from './pages/RegistrationPage/components/ProtectedRoute';
 
 parseInitialize();
 
