@@ -1,14 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
-import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore.ts';
-import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore.ts';
+import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
+import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore';
 import { AnswerVariant } from './components/AnswerVariant';
 
 export const QuizTest = observer(() => {
   const { questions } = AdminPanelStore;
   const {
     activeQuestion,
+    questionNumberCounter,
     handleNextQuestionChange,
     handleSelectedAnswerChange,
     selectedAnswerIndex,
@@ -19,7 +20,7 @@ export const QuizTest = observer(() => {
 
   useEffect(() => {
     setProgressBarValue(activeQuestion, questions);
-  });
+  }, [activeQuestion]);
 
   return (
     <Box
@@ -76,7 +77,7 @@ export const QuizTest = observer(() => {
           marginBottom={['60px', '60px', '80px', '80px']}
           fontSize={['22px', '22px', '26px', '26px']}
         >
-          {questions[activeQuestion]?.word}
+          {questions[questionNumberCounter]?.word}
         </Text>
         <Box
           display="flex"
@@ -85,7 +86,7 @@ export const QuizTest = observer(() => {
           width="100%"
           maxWidth="500px"
         >
-          {questions[activeQuestion]?.choices.map((answer, index) => (
+          {questions[questionNumberCounter]?.choices.map((answer, index) => (
             <AnswerVariant
               answer={answer}
               index={index}
@@ -116,7 +117,7 @@ export const QuizTest = observer(() => {
           >
             <Progress value={progressBarValue} width="200px" />
             <Text>
-              {activeQuestion + 1}/{questions?.length}
+              {questionNumberCounter + 1}/{questions?.length}
             </Text>
           </Box>
           <Button
@@ -124,7 +125,7 @@ export const QuizTest = observer(() => {
             onClick={() => handleNextQuestionChange(questions)}
             isDisabled={selectedAnswerIndex === null}
           >
-            {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+            {questionNumberCounter === questions.length - 1 ? 'Finish' : 'Next'}
           </Button>
         </Box>
       </Box>

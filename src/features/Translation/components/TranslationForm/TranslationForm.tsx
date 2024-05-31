@@ -23,7 +23,7 @@ export const TranslationForm = observer(() => {
           maxLength={2000}
           maxHeight="200px"
           value={textAreaValue}
-          onChange={(event) => handleTextAreaValueChange(event.target.value)}
+          onChange={handleTextAreaValueChange}
           sx={{
             '&:focus': {
               boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.5)',

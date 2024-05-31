@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import TranslationStore from '../../stores/TranslationStore/TranslationStore.ts';
+import TranslationStore from '../../stores/TranslationStore/TranslationStore';
 import { Box, Button, FormControl, Input, Text } from '@chakra-ui/react';
-import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore.ts';
+import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 
 export const AdminPanel = observer(() => {
   const { wordData, translationValue, textAreaValue } = TranslationStore;
@@ -26,12 +26,12 @@ export const AdminPanel = observer(() => {
           <Button
             type="button"
             onClick={() =>
-              handleFormSubmit(
+              handleFormSubmit({
                 translationValue,
                 choices,
                 wordData,
                 textAreaValue,
-              )
+              })
             }
           >
             Submit

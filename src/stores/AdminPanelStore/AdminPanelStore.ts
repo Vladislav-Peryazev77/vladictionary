@@ -1,6 +1,8 @@
-import { QuizWordData } from '../../types/adminPanelTypes/adminPanelTypes.ts';
+import {
+  QuizWordData,
+  SubmitFormArguments,
+} from '../../types/adminPanelTypes/adminPanelTypes';
 import { makeAutoObservable } from 'mobx';
-import { WordData } from '../../types/translationTypes/translationTypes.ts';
 
 class AdminPanelStore {
   questions: QuizWordData[] = [];
@@ -21,12 +23,12 @@ class AdminPanelStore {
     }
   };
 
-  handleFormSubmit = (
-    translationValue: string,
-    choices: string,
-    wordData: WordData,
-    textAreaValue: string,
-  ) => {
+  handleFormSubmit = ({
+    translationValue,
+    choices,
+    wordData,
+    textAreaValue,
+  }: SubmitFormArguments) => {
     const choicesArray = choices.split(', ');
     const phoneticAudio = new Audio(
       `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${wordData.word}--_gb_1.mp3`,

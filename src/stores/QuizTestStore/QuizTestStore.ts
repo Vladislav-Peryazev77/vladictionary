@@ -1,9 +1,10 @@
 import { makeAutoObservable } from 'mobx';
-import { QuizWordData } from '../../types/adminPanelTypes/adminPanelTypes.ts';
-import { QuizResult } from '../../types/quizTestTypes/quizTestTypes.ts';
+import { QuizWordData } from '../../types/adminPanelTypes/adminPanelTypes';
+import { QuizResult } from '../../types/quizTestTypes/quizTestTypes';
 
 class QuizTestStore {
-  activeQuestion: number = 0;
+  activeQuestion: number = 1;
+  questionNumberCounter: number = 0;
   selectedAnswer: boolean = false;
   selectedAnswerIndex: number | null = null;
   result: QuizResult = {
@@ -17,6 +18,10 @@ class QuizTestStore {
     makeAutoObservable(this);
     this.setResult();
   }
+
+  setQuestionNumberCounter = () => {
+    this.questionNumberCounter = this.questionNumberCounter + 1;
+  };
 
   setActiveQuestion = () => {
     this.activeQuestion = this.activeQuestion + 1;
@@ -41,8 +46,9 @@ class QuizTestStore {
   };
 
   handleNextQuestionChange = (questions: QuizWordData[]) => {
-    if (this.activeQuestion !== questions.length - 1) {
+    if (this.questionNumberCounter !== questions.length - 1) {
       this.setActiveQuestion();
+      this.setQuestionNumberCounter();
     }
     this.setResult();
     this.setSelectedAnswerIndex(null);
@@ -54,7 +60,7 @@ class QuizTestStore {
     questions: QuizWordData[],
   ) => {
     this.setSelectedAnswerIndex(index);
-    if (answer === questions[this.activeQuestion].correctAnswer) {
+    if (answer === questions[this.questionNumberCounter].correctAnswer) {
       this.setSelectedAnswer(true);
       return;
     }
@@ -62,7 +68,7 @@ class QuizTestStore {
   };
 
   setProgressBarValue = (activeQuestion: number, questions: QuizWordData[]) => {
-    this.progressBarValue = ((activeQuestion + 1) / questions.length) * 100;
+    this.progressBarValue = (activeQuestion / questions.length) * 100;
   };
 }
 

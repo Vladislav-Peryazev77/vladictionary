@@ -17,7 +17,7 @@ export const AnswerVariant = ({
     <Button
       fontSize={['16px', '16px', '20px', '20px']}
       onClick={() => onClick(answer, index)}
-      bgColor={`${selectedAnswerIndex == index ? 'grey' : 'none'}`}
+      bgColor={selectedAnswerIndex == index ? 'grey' : 'none'}
       _hover={{ bgColor: 'none' }}
     >
       {answer}

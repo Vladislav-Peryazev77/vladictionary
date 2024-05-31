@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Box, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { createNeonAnimation } from './animations/createNeonAnimation';
-import { createNavLinks } from './routes/routes.ts';
-import { observer } from 'mobx-react-lite';
+import { createNavLinks } from './routes/routes';
 import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
-import { useEffect } from 'react';
 
 export const Header = observer(() => {
   const { currentUser, handleUserLogOut, currentUserId, getCurrentUser } =
