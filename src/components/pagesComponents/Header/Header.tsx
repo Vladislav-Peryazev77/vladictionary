@@ -1,6 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { createNeonAnimation } from './animations/createNeonAnimation';
+import { createNavLinks } from './routes/routes.ts';
 import { observer } from 'mobx-react-lite';
 import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
 import { useEffect } from 'react';
@@ -32,22 +33,23 @@ export const Header = observer(() => {
           fontSize={['15px', '15px', '20px', '25px']}
           alignItems="center"
         >
-          <Box _hover={{ textDecoration: 'underline' }}>
-            <Link to="/">Translation</Link>
-          </Box>
-          {' | '}
-          <Box _hover={{ textDecoration: 'underline' }}>
-            <Link to="/dictionary">Dictionary</Link>
-          </Box>
-          {currentUserId === 'aZ08EgqfHC' && (
-            <>
-              {' | '}
-              <Link to={'/admin-panel'}>A</Link>
-            </>
-          )}
+          {createNavLinks(currentUserId).map((navLink) => {
+            return (
+              <Box
+                display="flex"
+                gap="5px"
+                alignItems="center"
+                key={navLink.id}
+              >
+                <Box _hover={{ textDecoration: 'underline' }}>
+                  <Link to={navLink.url}>{navLink.title}</Link>
+                </Box>
+                {' | '}
+              </Box>
+            );
+          })}
           {currentUser && (
             <>
-              {' | '}
               <button onClick={handleUserLogOut}>
                 <img src="src/assets/icons/logout-icon.svg" />
               </button>

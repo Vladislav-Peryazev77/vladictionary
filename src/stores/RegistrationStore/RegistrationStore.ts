@@ -31,7 +31,6 @@ class RegistrationStore {
 
       this.clearLoginFields();
 
-      // this.getCurrentUserId();
       this.getCurrentUser();
 
       return true;

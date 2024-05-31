@@ -1,41 +1,25 @@
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
 import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore.ts';
-import { useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore.ts';
 import { AnswerVariant } from './components/AnswerVariant';
 
 export const QuizTest = observer(() => {
   const { questions } = AdminPanelStore;
-  const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(false);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(5);
-  const [result, setResult] = useState({
-    score: 0,
-    correctAnswers: 0,
-    wrongAnswers: 0,
+  const {
+    activeQuestion,
+    handleNextQuestionChange,
+    handleSelectedAnswerChange,
+    selectedAnswerIndex,
+    result,
+    progressBarValue,
+    setProgressBarValue,
+  } = QuizTestStore;
+
+  useEffect(() => {
+    setProgressBarValue(activeQuestion, questions);
   });
-
-  const onClickNext = () => {
-    setActiveQuestion((prev) => prev + 1);
-    setResult((prev) =>
-      selectedAnswer
-        ? {
-            ...prev,
-            score: prev.score + 5,
-            correctAnswers: prev.correctAnswers + 1,
-          }
-        : { ...prev, wrongAnswers: prev.wrongAnswers + 1 },
-    );
-  };
-
-  const onAnswerSelected = (answer: string, index: number) => {
-    setSelectedAnswerIndex(index);
-    if (answer === questions[activeQuestion].correctAnswer) {
-      setSelectedAnswer(true);
-    } else {
-      setSelectedAnswer(false);
-    }
-  };
 
   return (
     <Box
@@ -60,7 +44,7 @@ export const QuizTest = observer(() => {
       >
         <Box display="flex" gap="5px" alignItems="center">
           <img src="src/assets/icons/score-icon.svg" />
-          <Text>200</Text>
+          <Text>{result.score}</Text>
         </Box>
         <Text fontSize={['18px', '25px']}>Fantasy Quiz #156</Text>
         <CloseButton />
@@ -73,7 +57,9 @@ export const QuizTest = observer(() => {
         marginBottom="40px"
       >
         <Progress value={25} width="100%" />
-        <Text>1/5</Text>
+        <Text>
+          {activeQuestion}/{questions?.length}
+        </Text>
       </Box>
 
       <Box
@@ -104,7 +90,9 @@ export const QuizTest = observer(() => {
               answer={answer}
               index={index}
               selectedAnswerIndex={selectedAnswerIndex}
-              onClick={onAnswerSelected}
+              onClick={() =>
+                handleSelectedAnswerChange(answer, index, questions)
+              }
               key={answer}
             />
           ))}
@@ -126,13 +114,15 @@ export const QuizTest = observer(() => {
             alignItems="center"
             gap="7px"
           >
-            <Progress value={25} width="200px" />
-            <Text>1/5</Text>
+            <Progress value={progressBarValue} width="200px" />
+            <Text>
+              {activeQuestion + 1}/{questions?.length}
+            </Text>
           </Box>
           <Button
             width={['100%', '100%', 'unset', 'unset']}
-            onClick={onClickNext}
-            isDisabled={selectedAnswerIndex === 5}
+            onClick={() => handleNextQuestionChange(questions)}
+            isDisabled={selectedAnswerIndex === null}
           >
             {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
           </Button>

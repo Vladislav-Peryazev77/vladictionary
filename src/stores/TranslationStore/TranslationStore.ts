@@ -17,6 +17,7 @@ class TranslationStore {
   isOtherMeanings = true;
   originalLanguage: string = 'en';
   translatedLanguage: string = 'ru';
+  textAreaValue: string = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -116,6 +117,10 @@ class TranslationStore {
 
   setTranslatedLanguage = (language: string) => {
     this.translatedLanguage = language;
+  };
+
+  handleTextAreaValueChange = (value: string) => {
+    this.textAreaValue = value;
   };
 }
 

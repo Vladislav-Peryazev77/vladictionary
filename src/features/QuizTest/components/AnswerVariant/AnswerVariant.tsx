@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/react';
 interface AnswerVariantProps {
   answer: string;
   index: number;
-  selectedAnswerIndex: number;
+  selectedAnswerIndex: number | null;
   onClick: (answer: string, index: number) => void;
 }
 
