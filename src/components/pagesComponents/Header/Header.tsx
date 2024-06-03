@@ -41,7 +41,6 @@ export const Header = observer(() => {
               {index < array.length - 1 && ' | '}
             </Box>
           ))}
-
           {currentUser && (
             <>
               {' | '}
