@@ -17,27 +17,25 @@ export const AdminPanel = observer(() => {
       padding="20px"
       color="#fff"
     >
-      <form>
-        <FormControl display="flex" flexDirection="column" gap="15px">
-          <Text>
-            {wordData.word} - {translationValue}
-          </Text>
-          <Input onChange={(event) => handleChoiceChange(event.target.value)} />
-          <Button
-            type="button"
-            onClick={() =>
-              handleFormSubmit({
-                translationValue,
-                choices,
-                wordData,
-                textAreaValue,
-              })
-            }
-          >
-            Submit
-          </Button>
-        </FormControl>
-      </form>
+      <FormControl display="flex" flexDirection="column" gap="15px">
+        <Text>
+          {wordData.word} - {translationValue}
+        </Text>
+        <Input onChange={(event) => handleChoiceChange(event.target.value)} />
+        <Button
+          type="button"
+          onClick={() =>
+            handleFormSubmit({
+              translationValue,
+              choices,
+              wordData,
+              textAreaValue,
+            })
+          }
+        >
+          Submit
+        </Button>
+      </FormControl>
     </Box>
   );
 });

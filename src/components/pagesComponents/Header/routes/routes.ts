@@ -1,11 +1,11 @@
-interface Routes {
+interface Route {
   title: string;
   url: string;
   id: string;
   isOnlyAdmin?: boolean;
 }
 
-const routes: Routes[] = [
+const routes: Route[] = [
   { title: 'Tranlation', url: '/', id: '1' },
   { title: 'Dictionary', url: '/dictionary', id: '2' },
   { title: 'A', url: '/admin-panel', id: '3', isOnlyAdmin: true },

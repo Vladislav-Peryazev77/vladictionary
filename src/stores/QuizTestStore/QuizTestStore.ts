@@ -16,14 +16,13 @@ class QuizTestStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.setResult();
   }
 
-  setQuestionNumberCounter = () => {
+  goToNextQuestionNumberCounter = () => {
     this.questionNumberCounter = this.questionNumberCounter + 1;
   };
 
-  setActiveQuestion = () => {
+  goToNextQuestion = () => {
     this.activeQuestion = this.activeQuestion + 1;
   };
 
@@ -35,7 +34,7 @@ class QuizTestStore {
     this.selectedAnswerIndex = answerIndex;
   };
 
-  setResult = () => {
+  updateResult = () => {
     this.result = this.selectedAnswer
       ? {
           ...this.result,
@@ -47,10 +46,10 @@ class QuizTestStore {
 
   handleNextQuestionChange = (questions: QuizWordData[]) => {
     if (this.questionNumberCounter !== questions.length - 1) {
-      this.setActiveQuestion();
-      this.setQuestionNumberCounter();
+      this.goToNextQuestion();
+      this.goToNextQuestionNumberCounter();
     }
-    this.setResult();
+    this.updateResult();
     this.setSelectedAnswerIndex(null);
   };
 

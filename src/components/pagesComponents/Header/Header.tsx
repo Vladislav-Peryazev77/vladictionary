@@ -33,23 +33,18 @@ export const Header = observer(() => {
           fontSize={['15px', '15px', '20px', '25px']}
           alignItems="center"
         >
-          {createNavLinks(currentUserId).map((navLink) => {
-            return (
-              <Box
-                display="flex"
-                gap="5px"
-                alignItems="center"
-                key={navLink.id}
-              >
-                <Box _hover={{ textDecoration: 'underline' }}>
-                  <Link to={navLink.url}>{navLink.title}</Link>
-                </Box>
-                {' | '}
+          {createNavLinks(currentUserId).map((navLink, index, array) => (
+            <Box display="flex" gap="5px" alignItems="center" key={navLink.id}>
+              <Box _hover={{ textDecoration: 'underline' }}>
+                <Link to={navLink.url}>{navLink.title}</Link>
               </Box>
-            );
-          })}
+              {index < array.length - 1 && ' | '}
+            </Box>
+          ))}
+
           {currentUser && (
             <>
+              {' | '}
               <button onClick={handleUserLogOut}>
                 <img src="src/assets/icons/logout-icon.svg" />
               </button>

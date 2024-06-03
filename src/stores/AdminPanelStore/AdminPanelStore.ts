@@ -18,9 +18,10 @@ class AdminPanelStore {
   };
 
   setQuestionArray = (question: QuizWordData) => {
-    if (question !== null) {
-      this.questions.push(question);
+    if (question === null) {
+      return;
     }
+    this.questions = [...this.questions, question];
   };
 
   handleFormSubmit = ({
@@ -39,9 +40,10 @@ class AdminPanelStore {
       audio: phoneticAudio,
       correctAnswer: textAreaValue,
     });
-    if (this.quizWordData !== null) {
-      this.setQuestionArray(this.quizWordData);
+    if (this.quizWordData === null) {
+      return;
     }
+    this.setQuestionArray(this.quizWordData);
   };
 
   handleChoiceChange = (choicesStr: string) => {
