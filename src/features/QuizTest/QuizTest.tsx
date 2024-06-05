@@ -1,7 +1,27 @@
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
+import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
+import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore';
 import { AnswerVariant } from './components/AnswerVariant';
 
-export const QuizTest = () => {
+export const QuizTest = observer(() => {
+  const { questions } = AdminPanelStore;
+  const {
+    activeQuestion,
+    questionNumberCounter,
+    handleNextQuestionChange,
+    handleSelectedAnswerChange,
+    selectedAnswerIndex,
+    result,
+    progressBarValue,
+    setProgressBarValue,
+  } = QuizTestStore;
+
+  useEffect(() => {
+    setProgressBarValue(activeQuestion, questions);
+  }, [activeQuestion]);
+
   return (
     <Box
       maxWidth="1100px"
@@ -25,7 +45,7 @@ export const QuizTest = () => {
       >
         <Box display="flex" gap="5px" alignItems="center">
           <img src="src/assets/icons/score-icon.svg" />
-          <Text>200</Text>
+          <Text>{result.score}</Text>
         </Box>
         <Text fontSize={['18px', '25px']}>Fantasy Quiz #156</Text>
         <CloseButton />
@@ -38,7 +58,9 @@ export const QuizTest = () => {
         marginBottom="40px"
       >
         <Progress value={25} width="100%" />
-        <Text>1/5</Text>
+        <Text>
+          {activeQuestion}/{questions?.length}
+        </Text>
       </Box>
 
       <Box
@@ -55,7 +77,7 @@ export const QuizTest = () => {
           marginBottom={['60px', '60px', '80px', '80px']}
           fontSize={['22px', '22px', '26px', '26px']}
         >
-          PREDICT THE TOP LOSER (for tomorrow) across these indices
+          {questions[questionNumberCounter]?.word}
         </Text>
         <Box
           display="flex"
@@ -64,10 +86,17 @@ export const QuizTest = () => {
           width="100%"
           maxWidth="500px"
         >
-          <AnswerVariant />
-          <AnswerVariant />
-          <AnswerVariant />
-          <AnswerVariant />
+          {questions[questionNumberCounter]?.choices.map((answer, index) => (
+            <AnswerVariant
+              answer={answer}
+              index={index}
+              selectedAnswerIndex={selectedAnswerIndex}
+              onClick={() =>
+                handleSelectedAnswerChange(answer, index, questions)
+              }
+              key={answer}
+            />
+          ))}
         </Box>
       </Box>
       <Box
@@ -86,12 +115,20 @@ export const QuizTest = () => {
             alignItems="center"
             gap="7px"
           >
-            <Progress value={25} width="200px" />
-            <Text>1/5</Text>
+            <Progress value={progressBarValue} width="200px" />
+            <Text>
+              {questionNumberCounter + 1}/{questions?.length}
+            </Text>
           </Box>
-          <Button width={['100%', '100%', 'unset', 'unset']}>Continue</Button>
+          <Button
+            width={['100%', '100%', 'unset', 'unset']}
+            onClick={() => handleNextQuestionChange(questions)}
+            isDisabled={selectedAnswerIndex === null}
+          >
+            {questionNumberCounter === questions.length - 1 ? 'Finish' : 'Next'}
+          </Button>
         </Box>
       </Box>
     </Box>
   );
-};
+});
