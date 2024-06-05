@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
 import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore';
@@ -15,12 +14,7 @@ export const QuizTest = observer(() => {
     selectedAnswerIndex,
     result,
     progressBarValue,
-    setProgressBarValue,
   } = QuizTestStore;
-
-  useEffect(() => {
-    setProgressBarValue(activeQuestion, questions);
-  }, [activeQuestion]);
 
   return (
     <Box
@@ -92,7 +86,11 @@ export const QuizTest = observer(() => {
               index={index}
               selectedAnswerIndex={selectedAnswerIndex}
               onClick={() =>
-                handleSelectedAnswerChange(answer, index, questions)
+                handleSelectedAnswerChange(
+                  answer,
+                  index,
+                  questions[questionNumberCounter].correctAnswer,
+                )
               }
               key={answer}
             />
@@ -122,7 +120,7 @@ export const QuizTest = observer(() => {
           </Box>
           <Button
             width={['100%', '100%', 'unset', 'unset']}
-            onClick={() => handleNextQuestionChange(questions)}
+            onClick={() => handleNextQuestionChange(questions.length)}
             isDisabled={selectedAnswerIndex === null}
           >
             {questionNumberCounter === questions.length - 1 ? 'Finish' : 'Next'}

@@ -13,10 +13,13 @@ export const AnswerVariant = ({
   index,
   selectedAnswerIndex,
 }: AnswerVariantProps) => {
+  const handleAnswerClick = () => {
+    onClick(answer, index);
+  };
   return (
     <Button
       fontSize={['16px', '16px', '20px', '20px']}
-      onClick={() => onClick(answer, index)}
+      onClick={handleAnswerClick}
       bgColor={selectedAnswerIndex == index ? 'grey' : 'none'}
       _hover={{ bgColor: 'none' }}
     >

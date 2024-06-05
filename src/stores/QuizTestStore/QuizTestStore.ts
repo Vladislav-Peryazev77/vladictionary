@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { QuizWordData } from '../../types/adminPanelTypes/adminPanelTypes';
 import { QuizResult } from '../../types/quizTestTypes/quizTestTypes';
 
 class QuizTestStore {
@@ -44,9 +43,10 @@ class QuizTestStore {
       : { ...this.result, wrongAnswers: this.result.wrongAnswers + 1 };
   };
 
-  handleNextQuestionChange = (questions: QuizWordData[]) => {
-    if (this.questionNumberCounter !== questions.length - 1) {
+  handleNextQuestionChange = (questionsLength: number) => {
+    if (this.questionNumberCounter !== questionsLength - 1) {
       this.goToNextQuestion();
+      this.setProgressBarValue(this.activeQuestion, questionsLength);
       this.goToNextQuestionNumberCounter();
     }
     this.updateResult();
@@ -56,18 +56,22 @@ class QuizTestStore {
   handleSelectedAnswerChange = (
     answer: string,
     index: number,
-    questions: QuizWordData[],
+    correctAnswer: string,
   ) => {
+    this.checkSelectedAnswer(answer, correctAnswer);
     this.setSelectedAnswerIndex(index);
-    if (answer === questions[this.questionNumberCounter].correctAnswer) {
+  };
+
+  checkSelectedAnswer = (answer: string, correctAnswer: string) => {
+    if (answer === correctAnswer) {
       this.setSelectedAnswer(true);
       return;
     }
     this.setSelectedAnswer(false);
   };
 
-  setProgressBarValue = (activeQuestion: number, questions: QuizWordData[]) => {
-    this.progressBarValue = (activeQuestion / questions.length) * 100;
+  setProgressBarValue = (activeQuestion: number, questionsLength: number) => {
+    this.progressBarValue = (activeQuestion / questionsLength) * 100;
   };
 }
 
