@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 interface RegistrationInputProps {
   labelText: string;
-  onChange: (value: string) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputValue: string;
 }
 
@@ -20,6 +20,10 @@ export const RegistrationInput = observer(
       setInputFocused(false);
     };
 
+    const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(event);
+    };
+
     return (
       <Box
         position="relative"
@@ -33,7 +37,7 @@ export const RegistrationInput = observer(
           color="#fff"
           onFocus={onInputFocus}
           onBlur={onInputBlur}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={handleValueChange}
           sx={{
             '&:focus': {
               boxShadow: 'none',

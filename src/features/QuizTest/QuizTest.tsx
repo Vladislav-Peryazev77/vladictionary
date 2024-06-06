@@ -9,12 +9,16 @@ export const QuizTest = observer(() => {
   const {
     activeQuestion,
     questionNumberCounter,
-    handleNextQuestionChange,
-    handleSelectedAnswerChange,
+    goToNextQuestion,
+    selectAnswer,
     selectedAnswerIndex,
     result,
     progressBarValue,
   } = QuizTestStore;
+
+  const handleNextQuestionChange = () => {
+    goToNextQuestion(questions.length);
+  };
 
   return (
     <Box
@@ -80,21 +84,24 @@ export const QuizTest = observer(() => {
           width="100%"
           maxWidth="500px"
         >
-          {questions[questionNumberCounter]?.choices.map((answer, index) => (
-            <AnswerVariant
-              answer={answer}
-              index={index}
-              selectedAnswerIndex={selectedAnswerIndex}
-              onClick={() =>
-                handleSelectedAnswerChange(
-                  answer,
-                  index,
-                  questions[questionNumberCounter].correctAnswer,
-                )
-              }
-              key={answer}
-            />
-          ))}
+          {questions[questionNumberCounter]?.choices.map((answer, index) => {
+            const onClick = () => {
+              selectAnswer(
+                answer,
+                index,
+                questions[questionNumberCounter].correctAnswer,
+              );
+            };
+            return (
+              <AnswerVariant
+                onClick={onClick}
+                isSelected={selectedAnswerIndex == index}
+                key={answer}
+              >
+                {answer}
+              </AnswerVariant>
+            );
+          })}
         </Box>
       </Box>
       <Box
@@ -120,7 +127,7 @@ export const QuizTest = observer(() => {
           </Box>
           <Button
             width={['100%', '100%', 'unset', 'unset']}
-            onClick={() => handleNextQuestionChange(questions.length)}
+            onClick={handleNextQuestionChange}
             isDisabled={selectedAnswerIndex === null}
           >
             {questionNumberCounter === questions.length - 1 ? 'Finish' : 'Next'}

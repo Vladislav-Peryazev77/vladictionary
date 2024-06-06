@@ -17,12 +17,12 @@ class QuizTestStore {
     makeAutoObservable(this);
   }
 
-  goToNextQuestionNumberCounter = () => {
-    this.questionNumberCounter = this.questionNumberCounter + 1;
+  setQuestionNumberCounter = (questionNumber: number) => {
+    this.questionNumberCounter = questionNumber;
   };
 
-  goToNextQuestion = () => {
-    this.activeQuestion = this.activeQuestion + 1;
+  setActiveQuestionNumber = (questionNumber: number) => {
+    this.activeQuestion = questionNumber;
   };
 
   setSelectedAnswer = (answer: boolean) => {
@@ -43,21 +43,17 @@ class QuizTestStore {
       : { ...this.result, wrongAnswers: this.result.wrongAnswers + 1 };
   };
 
-  handleNextQuestionChange = (questionsLength: number) => {
+  goToNextQuestion = (questionsLength: number) => {
     if (this.questionNumberCounter !== questionsLength - 1) {
-      this.goToNextQuestion();
+      this.setActiveQuestionNumber(this.activeQuestion + 1);
       this.setProgressBarValue(this.activeQuestion, questionsLength);
-      this.goToNextQuestionNumberCounter();
+      this.setQuestionNumberCounter(this.questionNumberCounter + 1);
     }
     this.updateResult();
     this.setSelectedAnswerIndex(null);
   };
 
-  handleSelectedAnswerChange = (
-    answer: string,
-    index: number,
-    correctAnswer: string,
-  ) => {
+  selectAnswer = (answer: string, index: number, correctAnswer: string) => {
     this.checkSelectedAnswer(answer, correctAnswer);
     this.setSelectedAnswerIndex(index);
   };

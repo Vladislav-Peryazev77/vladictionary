@@ -7,13 +7,19 @@ export const TranslationForm = observer(() => {
     getTextTranslation,
     getWordDescription,
     textAreaValue,
-    handleTextAreaValueChange,
+    setTextAreaValue,
   } = TranslationStore;
 
   const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     getTextTranslation(textAreaValue);
     getWordDescription(textAreaValue);
+  };
+
+  const handleTextAreaValueChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setTextAreaValue(event);
   };
 
   return (

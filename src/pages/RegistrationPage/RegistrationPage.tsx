@@ -11,9 +11,9 @@ export const RegistrationPage = observer(() => {
   const {
     username,
     password,
-    handleUserNameValueChange,
-    handlePasswordValueChange,
-    handleUserLogIn,
+    setUserNameValue,
+    setPasswordValue,
+    logIn,
     currentUser,
   } = RegistrationStore;
 
@@ -24,6 +24,22 @@ export const RegistrationPage = observer(() => {
       navigate('/');
     }
   }, [currentUser]);
+
+  // const handleUserNameValueChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   setUserNameValue(event);
+  // };
+  //
+  // const handlePasswordValueChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   setPasswordValue(event);
+  // };
+
+  const handleUserLogIn = () => {
+    logIn();
+  };
 
   return (
     <PageWrapper url="src/assets/images/bg-registration-page.jpg">
@@ -50,12 +66,12 @@ export const RegistrationPage = observer(() => {
                 </Text>
                 <RegistrationInput
                   labelText="UserName"
-                  onChange={handleUserNameValueChange}
+                  onChange={setUserNameValue}
                   inputValue={username}
                 />
                 <RegistrationInput
                   labelText="Password"
-                  onChange={handlePasswordValueChange}
+                  onChange={setPasswordValue}
                   inputValue={password}
                 />
                 <Button type="button" onClick={handleUserLogIn}>

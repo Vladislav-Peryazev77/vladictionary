@@ -1,29 +1,27 @@
 import { Button } from '@chakra-ui/react';
 
 interface AnswerVariantProps {
-  answer: string;
-  index: number;
-  selectedAnswerIndex: number | null;
-  onClick: (answer: string, index: number) => void;
+  onClick: () => void;
+  isSelected: boolean;
+  children: React.ReactNode;
 }
 
 export const AnswerVariant = ({
-  answer,
   onClick,
-  index,
-  selectedAnswerIndex,
+  isSelected,
+  children,
 }: AnswerVariantProps) => {
   const handleAnswerClick = () => {
-    onClick(answer, index);
+    onClick();
   };
   return (
     <Button
       fontSize={['16px', '16px', '20px', '20px']}
       onClick={handleAnswerClick}
-      bgColor={selectedAnswerIndex == index ? 'grey' : 'none'}
+      bgColor={isSelected ? 'grey' : 'none'}
       _hover={{ bgColor: 'none' }}
     >
-      {answer}
+      {children}
     </Button>
   );
 };

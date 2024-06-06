@@ -119,7 +119,7 @@ class TranslationStore {
     this.translatedLanguage = language;
   };
 
-  handleTextAreaValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setTextAreaValue = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     this.textAreaValue = event.target.value;
   };
 }

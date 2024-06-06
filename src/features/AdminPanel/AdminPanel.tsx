@@ -5,8 +5,20 @@ import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 
 export const AdminPanel = observer(() => {
   const { wordData, translationValue, textAreaValue } = TranslationStore;
-  const { handleChoiceChange, handleFormSubmit, choices } = AdminPanelStore;
+  const { setChoices, submitForm, choices } = AdminPanelStore;
 
+  const handleSubmitForm = () => {
+    submitForm({
+      translationValue,
+      choices,
+      wordData,
+      textAreaValue,
+    });
+  };
+
+  const handleChoicesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChoices(event.target.value);
+  };
   return (
     <Box
       width="100%"
@@ -21,18 +33,8 @@ export const AdminPanel = observer(() => {
         <Text>
           {wordData.word} - {translationValue}
         </Text>
-        <Input onChange={(event) => handleChoiceChange(event.target.value)} />
-        <Button
-          type="button"
-          onClick={() =>
-            handleFormSubmit({
-              translationValue,
-              choices,
-              wordData,
-              textAreaValue,
-            })
-          }
-        >
+        <Input onChange={handleChoicesChange} />
+        <Button type="button" onClick={handleSubmitForm}>
           Submit
         </Button>
       </FormControl>

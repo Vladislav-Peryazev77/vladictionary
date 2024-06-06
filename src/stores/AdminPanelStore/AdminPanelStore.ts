@@ -24,7 +24,7 @@ class AdminPanelStore {
     this.questions = [...this.questions, question];
   };
 
-  handleFormSubmit = ({
+  submitForm = ({
     translationValue,
     choices,
     wordData,
@@ -46,7 +46,7 @@ class AdminPanelStore {
     this.setQuestionArray(this.quizWordData);
   };
 
-  handleChoiceChange = (choicesStr: string) => {
+  setChoices = (choicesStr: string) => {
     this.choices = choicesStr;
   };
 }

@@ -12,20 +12,28 @@ class RegistrationStore {
     makeAutoObservable(this);
   }
 
-  handleUserNameValueChange = (value: string) => {
-    this.username = value;
+  setUserNameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.username = event.target.value;
   };
 
-  handlePasswordValueChange = (value: string) => {
-    this.password = value;
+  setPasswordValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.password = event.target.value;
+  };
+
+  clearUserNameValue = () => {
+    this.username = '';
+  };
+
+  clearPasswordValue = () => {
+    this.password = '';
   };
 
   clearLoginFields = () => {
-    this.handleUserNameValueChange('');
-    this.handlePasswordValueChange('');
+    this.clearUserNameValue();
+    this.clearPasswordValue();
   };
 
-  handleUserLogIn = async (): Promise<boolean> => {
+  logIn = async (): Promise<boolean> => {
     try {
       await Parse.User.logIn(this.username, this.password);
 
@@ -51,12 +59,6 @@ class RegistrationStore {
     this.setCurrentUserId('');
   };
 
-  getCurrentUserId = async (): Promise<User> => {
-    const currentUserId: string = await Parse.User.current()?.id; // лишний запрос
-    this.setCurrentUserId(currentUserId);
-    return currentUserId;
-  };
-
   setCurrentUser = (user: User) => {
     this.currentUser = user;
   };
@@ -65,7 +67,7 @@ class RegistrationStore {
     this.currentUserId = id;
   };
 
-  handleUserLogOut = async () => {
+  logOut = async () => {
     try {
       await Parse.User.logOut();
       this.getCurrentUser();

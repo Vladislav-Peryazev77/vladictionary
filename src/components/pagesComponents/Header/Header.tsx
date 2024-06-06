@@ -7,13 +7,17 @@ import { createNavLinks } from './routes/routes';
 import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
 
 export const Header = observer(() => {
-  const { currentUser, handleUserLogOut, currentUserId, getCurrentUser } =
+  const { currentUser, logOut, currentUserId, getCurrentUser } =
     RegistrationStore;
   useEffect(() => {
     if (currentUser === null) {
       getCurrentUser();
     }
   }, []);
+
+  const handleUserLogOut = () => {
+    logOut();
+  };
   return (
     <>
       <Box
