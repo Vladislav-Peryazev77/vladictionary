@@ -1,6 +1,6 @@
 import {
-  Phonetic,
   Meaning,
+  Phonetic,
 } from '../../../../../../types/translationTypes/translationTypes';
 import { Box, Text } from '@chakra-ui/react';
 
@@ -28,6 +28,10 @@ export const WordPhonetic = ({
       </>
     );
   }
+
+  const handlePhoticAudioPlay = () => {
+    phoneticAudio.play();
+  };
   return (
     <Box>
       {phonetics && (
@@ -35,7 +39,7 @@ export const WordPhonetic = ({
           <Text fontSize="25px" textTransform="capitalize">
             {word}
           </Text>
-          <button onClick={() => phoneticAudio.play()}>
+          <button onClick={handlePhoticAudioPlay}>
             <img src="src/assets/icons/pronunciation-icon.svg" />
           </button>
         </Box>

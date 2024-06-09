@@ -1,12 +1,23 @@
+import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Box, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { createNeonAnimation } from './animations/createNeonAnimation';
-import { observer } from 'mobx-react-lite';
+import { createNavLinks } from './routes/routes';
 import RegistrationStore from '../../../stores/RegistrationStore/RegistrationStore';
 
 export const Header = observer(() => {
-  const { currentUser, handleUserLogOut } = RegistrationStore;
+  const { currentUser, logOut, currentUserId, getCurrentUser } =
+    RegistrationStore;
+  useEffect(() => {
+    if (currentUser === null) {
+      getCurrentUser();
+    }
+  }, []);
 
+  const handleUserLogOut = () => {
+    logOut();
+  };
   return (
     <>
       <Box
@@ -26,13 +37,14 @@ export const Header = observer(() => {
           fontSize={['15px', '15px', '20px', '25px']}
           alignItems="center"
         >
-          <Box _hover={{ textDecoration: 'underline' }}>
-            <Link to="/">Translation</Link>
-          </Box>
-          {' | '}
-          <Box _hover={{ textDecoration: 'underline' }}>
-            <Link to="/dictionary">Dictionary</Link>
-          </Box>
+          {createNavLinks(currentUserId).map((navLink, index, array) => (
+            <Box display="flex" gap="5px" alignItems="center" key={navLink.id}>
+              <Box _hover={{ textDecoration: 'underline' }}>
+                <Link to={navLink.url}>{navLink.title}</Link>
+              </Box>
+              {index < array.length - 1 && ' | '}
+            </Box>
+          ))}
           {currentUser && (
             <>
               {' | '}

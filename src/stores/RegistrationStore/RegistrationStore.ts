@@ -6,34 +6,41 @@ class RegistrationStore {
   username: string = '';
   password: string = '';
   currentUser: User = null;
+  currentUserId: string = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  handleUserNameValueChange = (value: string) => {
-    this.username = value;
+  setUserNameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.username = event.target.value;
   };
 
-  handlePasswordValueChange = (value: string) => {
-    this.password = value;
+  setPasswordValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.password = event.target.value;
+  };
+
+  clearUserNameValue = () => {
+    this.username = '';
+  };
+
+  clearPasswordValue = () => {
+    this.password = '';
   };
 
   clearLoginFields = () => {
-    this.handleUserNameValueChange('');
-    this.handlePasswordValueChange('');
+    this.clearUserNameValue();
+    this.clearPasswordValue();
   };
 
-  handleUserLogIn = async (): Promise<boolean> => {
+  logIn = async (): Promise<boolean> => {
     try {
-      const loggedInUser: Parse.User = await Parse.User.logIn(
-        this.username,
-        this.password,
-      );
+      await Parse.User.logIn(this.username, this.password);
 
       this.clearLoginFields();
 
       this.getCurrentUser();
+
       return true;
     } catch (error: any) {
       console.log(`Error! ${error.message}`);
@@ -43,25 +50,29 @@ class RegistrationStore {
 
   getCurrentUser = async (): Promise<User> => {
     const currentUser: Parse.User | null = await Parse.User.current();
-    this.setCurrentUser(currentUser);
-    return currentUser;
+    if (currentUser !== null) {
+      this.setCurrentUser(currentUser);
+      this.setCurrentUserId(currentUser.id);
+      return;
+    }
+    this.setCurrentUser(null);
+    this.setCurrentUserId('');
   };
 
   setCurrentUser = (user: User) => {
     this.currentUser = user;
   };
 
-  handleUserLogOut = async () => {
+  setCurrentUserId = (id: string) => {
+    this.currentUserId = id;
+  };
+
+  logOut = async () => {
     try {
       await Parse.User.logOut();
-
-      const currentUser: Parse.User = await Parse.User.current();
-
       this.getCurrentUser();
-      return true;
     } catch (error: any) {
       console.log(`Error! ${error.message}`);
-      return false;
     }
   };
 }

@@ -1,17 +1,25 @@
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
-import TranslationStore from '../../../../stores/TranslationStore/TranslationStore';
 import { Button, FormControl, Textarea } from '@chakra-ui/react';
+import TranslationStore from '../../../../stores/TranslationStore/TranslationStore';
 
 export const TranslationForm = observer(() => {
-  const [textAreaValue, setTextAreaValue] = useState('');
-
-  const { getTextTranslation, getWordDescription } = TranslationStore;
+  const {
+    getTextTranslation,
+    getWordDescription,
+    textAreaValue,
+    setTextAreaValue,
+  } = TranslationStore;
 
   const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     getTextTranslation(textAreaValue);
     getWordDescription(textAreaValue);
+  };
+
+  const handleTextAreaValueChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    setTextAreaValue(event);
   };
 
   return (
@@ -20,7 +28,8 @@ export const TranslationForm = observer(() => {
         <Textarea
           maxLength={2000}
           maxHeight="200px"
-          onChange={(event) => setTextAreaValue(event.target.value)}
+          value={textAreaValue}
+          onChange={handleTextAreaValueChange}
           sx={{
             '&:focus': {
               boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.5)',
