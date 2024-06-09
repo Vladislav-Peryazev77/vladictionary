@@ -17,7 +17,14 @@ export const QuizTest = observer(() => {
   } = QuizTestStore;
 
   const handleNextQuestionChange = () => {
-    goToNextQuestion(questions.length);
+    goToNextQuestion(
+      questions.length,
+      questions[questionNumberCounter].correctAnswer,
+    );
+  };
+
+  const handleSelectAnswerChange = (answer: string, index: number) => {
+    selectAnswer(answer, index);
   };
 
   return (
@@ -85,16 +92,9 @@ export const QuizTest = observer(() => {
           maxWidth="500px"
         >
           {questions[questionNumberCounter]?.choices.map((answer, index) => {
-            const onClick = () => {
-              selectAnswer(
-                answer,
-                index,
-                questions[questionNumberCounter].correctAnswer,
-              );
-            };
             return (
               <AnswerVariant
-                onClick={onClick}
+                onClick={() => handleSelectAnswerChange(answer, index)}
                 isSelected={selectedAnswerIndex == index}
                 key={answer}
               >

@@ -1,10 +1,11 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 import { QuizResult } from '../../types/quizTestTypes/quizTestTypes';
 
 class QuizTestStore {
   activeQuestion: number = 1;
   questionNumberCounter: number = 0;
-  selectedAnswer: boolean = false;
+  currentSelectedAnswer: string | null = null;
+  isSelectedAnswerRight: boolean = false;
   selectedAnswerIndex: number | null = null;
   result: QuizResult = {
     score: 0,
@@ -26,7 +27,7 @@ class QuizTestStore {
   };
 
   setSelectedAnswer = (answer: boolean) => {
-    this.selectedAnswer = answer;
+    this.isSelectedAnswerRight = answer;
   };
 
   setSelectedAnswerIndex = (answerIndex: number | null) => {
@@ -34,7 +35,7 @@ class QuizTestStore {
   };
 
   updateResult = () => {
-    this.result = this.selectedAnswer
+    this.result = this.isSelectedAnswerRight
       ? {
           ...this.result,
           score: this.result.score + 5,
@@ -43,18 +44,22 @@ class QuizTestStore {
       : { ...this.result, wrongAnswers: this.result.wrongAnswers + 1 };
   };
 
-  goToNextQuestion = (questionsLength: number) => {
+  goToNextQuestion = (questionsLength: number, correctAnswer: string) => {
     if (this.questionNumberCounter !== questionsLength - 1) {
       this.setActiveQuestionNumber(this.activeQuestion + 1);
       this.setProgressBarValue(this.activeQuestion, questionsLength);
       this.setQuestionNumberCounter(this.questionNumberCounter + 1);
     }
+    if (this.currentSelectedAnswer !== null) {
+      this.checkSelectedAnswer(this.currentSelectedAnswer, correctAnswer);
+    }
     this.updateResult();
+    console.log(toJS(this.result));
     this.setSelectedAnswerIndex(null);
   };
 
-  selectAnswer = (answer: string, index: number, correctAnswer: string) => {
-    this.checkSelectedAnswer(answer, correctAnswer);
+  selectAnswer = (answer: string, index: number) => {
+    this.setCurrentSelectedAnswer(answer);
     this.setSelectedAnswerIndex(index);
   };
 
@@ -68,6 +73,10 @@ class QuizTestStore {
 
   setProgressBarValue = (activeQuestion: number, questionsLength: number) => {
     this.progressBarValue = (activeQuestion / questionsLength) * 100;
+  };
+
+  setCurrentSelectedAnswer = (answer: string) => {
+    this.currentSelectedAnswer = answer;
   };
 }
 

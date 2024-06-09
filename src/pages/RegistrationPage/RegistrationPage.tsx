@@ -25,17 +25,17 @@ export const RegistrationPage = observer(() => {
     }
   }, [currentUser]);
 
-  // const handleUserNameValueChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  // ) => {
-  //   setUserNameValue(event);
-  // };
-  //
-  // const handlePasswordValueChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  // ) => {
-  //   setPasswordValue(event);
-  // };
+  const handleUserNameValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setUserNameValue(event.target.value);
+  };
+
+  const handlePasswordValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setPasswordValue(event.target.value);
+  };
 
   const handleUserLogIn = () => {
     logIn();
@@ -66,12 +66,12 @@ export const RegistrationPage = observer(() => {
                 </Text>
                 <RegistrationInput
                   labelText="UserName"
-                  onChange={setUserNameValue}
+                  onChange={handleUserNameValueChange}
                   inputValue={username}
                 />
                 <RegistrationInput
                   labelText="Password"
-                  onChange={setPasswordValue}
+                  onChange={handlePasswordValueChange}
                   inputValue={password}
                 />
                 <Button type="button" onClick={handleUserLogIn}>
