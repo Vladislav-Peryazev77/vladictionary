@@ -64,7 +64,7 @@ class RegistrationStore {
       await Parse.User.logOut();
       this.getCurrentUser();
     } catch (error: any) {
-      console.log(`Error! ${error.message}`);
+      console.log(`Error ${error.message}`);
     }
   };
 }
