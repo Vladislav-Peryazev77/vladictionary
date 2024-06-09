@@ -3,6 +3,7 @@ import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
 import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore';
 import { AnswerVariant } from './components/AnswerVariant';
+import { QuizResultText } from './components/QuizResultText';
 
 export const QuizTest = observer(() => {
   const { questions } = AdminPanelStore;
@@ -14,6 +15,7 @@ export const QuizTest = observer(() => {
     selectedAnswerIndex,
     result,
     progressBarValue,
+    isShowResultScreen,
   } = QuizTestStore;
 
   const handleNextQuestionChange = () => {
@@ -31,6 +33,7 @@ export const QuizTest = observer(() => {
     <Box
       maxWidth="1100px"
       width="100%"
+      minHeight="60%"
       border="2px solid #ffffff80"
       borderRadius="20px"
       backdropFilter="blur(150px)"
@@ -55,85 +58,95 @@ export const QuizTest = observer(() => {
         <Text fontSize={['18px', '25px']}>Fantasy Quiz #156</Text>
         <CloseButton />
       </Box>
-      <Box
-        display={['flex', 'flex', 'none', 'none']}
-        alignItems="center"
-        gap="7px"
-        width={['100%', '70%', '70%', '70%']}
-        marginBottom="40px"
-      >
-        <Progress value={25} width="100%" />
-        <Text>
-          {activeQuestion}/{questions?.length}
-        </Text>
-      </Box>
-
-      <Box
-        width="100%"
-        maxWidth="690px"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        textAlign="center"
-        fontSize="26px"
-        marginBottom="80px"
-      >
-        <Text
-          marginBottom={['60px', '60px', '80px', '80px']}
-          fontSize={['22px', '22px', '26px', '26px']}
-        >
-          {questions[questionNumberCounter]?.word}
-        </Text>
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap="15px"
-          width="100%"
-          maxWidth="500px"
-        >
-          {questions[questionNumberCounter]?.choices.map((answer, index) => {
-            return (
-              <AnswerVariant
-                onClick={() => handleSelectAnswerChange(answer, index)}
-                isSelected={selectedAnswerIndex == index}
-                key={answer}
-              >
-                {answer}
-              </AnswerVariant>
-            );
-          })}
-        </Box>
-      </Box>
-      <Box
-        width="100%"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          width={['100%', '70%', '65%', '65%']}
-        >
+      {isShowResultScreen ? (
+        <QuizResultText />
+      ) : (
+        <>
           <Box
-            display={['none', 'none', 'flex', 'flex']}
+            display={['flex', 'flex', 'none', 'none']}
             alignItems="center"
             gap="7px"
+            width={['100%', '70%', '70%', '70%']}
+            marginBottom="40px"
           >
-            <Progress value={progressBarValue} width="200px" />
+            <Progress value={25} width="100%" />
             <Text>
-              {questionNumberCounter + 1}/{questions?.length}
+              {activeQuestion}/{questions?.length}
             </Text>
           </Box>
-          <Button
-            width={['100%', '100%', 'unset', 'unset']}
-            onClick={handleNextQuestionChange}
-            isDisabled={selectedAnswerIndex === null}
+
+          <Box
+            width="100%"
+            maxWidth="690px"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            textAlign="center"
+            fontSize="26px"
+            marginBottom="80px"
           >
-            {questionNumberCounter === questions.length - 1 ? 'Finish' : 'Next'}
-          </Button>
-        </Box>
-      </Box>
+            <Text
+              marginBottom={['60px', '60px', '80px', '80px']}
+              fontSize={['22px', '22px', '26px', '26px']}
+            >
+              {questions[questionNumberCounter]?.word}
+            </Text>
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap="15px"
+              width="100%"
+              maxWidth="500px"
+            >
+              {questions[questionNumberCounter]?.choices.map(
+                (answer, index) => {
+                  return (
+                    <AnswerVariant
+                      onClick={() => handleSelectAnswerChange(answer, index)}
+                      isSelected={selectedAnswerIndex == index}
+                      key={answer}
+                    >
+                      {answer}
+                    </AnswerVariant>
+                  );
+                },
+              )}
+            </Box>
+          </Box>
+          <Box
+            width="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              width={['100%', '70%', '65%', '65%']}
+            >
+              <Box
+                display={['none', 'none', 'flex', 'flex']}
+                alignItems="center"
+                gap="7px"
+              >
+                <Progress value={progressBarValue} width="200px" />
+                <Text>
+                  {questionNumberCounter + 1}/{questions?.length}
+                </Text>
+              </Box>
+              <Button
+                width={['100%', '100%', 'unset', 'unset']}
+                onClick={handleNextQuestionChange}
+                isDisabled={selectedAnswerIndex === null}
+              >
+                {questionNumberCounter === questions.length - 1
+                  ? 'Finish'
+                  : 'Next'}
+              </Button>
+            </Box>
+          </Box>
+        </>
+      )}
     </Box>
   );
 });
