@@ -29,7 +29,7 @@ export const WordPhonetic = ({
     );
   }
 
-  const handlePhoticAudioPlay = () => {
+  const handlePhoneticAudioPlay = () => {
     phoneticAudio.play();
   };
   return (
@@ -39,7 +39,7 @@ export const WordPhonetic = ({
           <Text fontSize="25px" textTransform="capitalize">
             {word}
           </Text>
-          <button onClick={handlePhoticAudioPlay}>
+          <button onClick={handlePhoneticAudioPlay}>
             <img src="src/assets/icons/pronunciation-icon.svg" />
           </button>
         </Box>

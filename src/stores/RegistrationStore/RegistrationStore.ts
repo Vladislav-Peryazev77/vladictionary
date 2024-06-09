@@ -12,25 +12,17 @@ class RegistrationStore {
     makeAutoObservable(this);
   }
 
-  setUserNameValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.username = event.target.value;
+  setUserNameValue = (username: string) => {
+    this.username = username;
   };
 
-  setPasswordValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.password = event.target.value;
-  };
-
-  clearUserNameValue = () => {
-    this.username = '';
-  };
-
-  clearPasswordValue = () => {
-    this.password = '';
+  setPasswordValue = (password: string) => {
+    this.password = password;
   };
 
   clearLoginFields = () => {
-    this.clearUserNameValue();
-    this.clearPasswordValue();
+    this.setUserNameValue('');
+    this.setPasswordValue('');
   };
 
   logIn = async (): Promise<boolean> => {
@@ -72,7 +64,7 @@ class RegistrationStore {
       await Parse.User.logOut();
       this.getCurrentUser();
     } catch (error: any) {
-      console.log(`Error! ${error.message}`);
+      console.log(`Error ${error.message}`);
     }
   };
 }
