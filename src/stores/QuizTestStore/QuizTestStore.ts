@@ -17,7 +17,7 @@ class QuizTestStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.setIsShowResultScrean(false);
+    this.setIsShowResultScreen(false);
   }
 
   setQuestionNumberCounter = (questionNumber: number) => {
@@ -58,7 +58,7 @@ class QuizTestStore {
     this.updateResult();
     this.setSelectedAnswerIndex(null);
     if (this.questionNumberCounter === questionsLength) {
-      this.setIsShowResultScrean(true);
+      this.setIsShowResultScreen(true);
     }
   };
 
@@ -83,8 +83,8 @@ class QuizTestStore {
     this.currentSelectedAnswer = answer;
   };
 
-  setIsShowResultScrean = (isShowResultScrean: boolean) => {
-    this.isShowResultScreen = isShowResultScrean;
+  setIsShowResultScreen = (isShowResultScreen: boolean) => {
+    this.isShowResultScreen = isShowResultScreen;
   };
 }
 
