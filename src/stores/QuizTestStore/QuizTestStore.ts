@@ -1,4 +1,4 @@
-import { makeAutoObservable, toJS } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { QuizResult } from '../../types/quizTestTypes/quizTestTypes';
 
 class QuizTestStore {
@@ -13,9 +13,11 @@ class QuizTestStore {
     wrongAnswers: 0,
   };
   progressBarValue: number = 0;
+  isShowResultScreen: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
+    this.setIsShowResultScreen(false);
   }
 
   setQuestionNumberCounter = (questionNumber: number) => {
@@ -48,14 +50,16 @@ class QuizTestStore {
     if (this.questionNumberCounter !== questionsLength - 1) {
       this.setActiveQuestionNumber(this.activeQuestion + 1);
       this.setProgressBarValue(this.activeQuestion, questionsLength);
-      this.setQuestionNumberCounter(this.questionNumberCounter + 1);
     }
+    this.setQuestionNumberCounter(this.questionNumberCounter + 1);
     if (this.currentSelectedAnswer !== null) {
       this.checkSelectedAnswer(this.currentSelectedAnswer, correctAnswer);
     }
     this.updateResult();
-    console.log(toJS(this.result));
     this.setSelectedAnswerIndex(null);
+    if (this.questionNumberCounter === questionsLength) {
+      this.setIsShowResultScreen(true);
+    }
   };
 
   selectAnswer = (answer: string, index: number) => {
@@ -77,6 +81,10 @@ class QuizTestStore {
 
   setCurrentSelectedAnswer = (answer: string) => {
     this.currentSelectedAnswer = answer;
+  };
+
+  setIsShowResultScreen = (isShowResultScreen: boolean) => {
+    this.isShowResultScreen = isShowResultScreen;
   };
 }
 
