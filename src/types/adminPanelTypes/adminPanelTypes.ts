@@ -3,7 +3,7 @@ import { WordData } from '../translationTypes/translationTypes';
 export type QuizWordData = {
   word: string;
   choices: string[];
-  audio: object;
+  audio?: object;
   correctAnswer: string;
 };
 

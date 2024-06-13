@@ -2,8 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
 import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore';
-import { AnswerVariant } from './components/AnswerVariant';
 import { QuizResultText } from './components/QuizResultText';
+import { AnswerVariant } from './components/AnswerVariant';
 
 export const QuizTest = observer(() => {
   const { questions } = AdminPanelStore;
@@ -21,13 +21,22 @@ export const QuizTest = observer(() => {
   const handleNextQuestionChange = () => {
     goToNextQuestion(
       questions.length,
-      questions[questionNumberCounter].correctAnswer,
+      questions[questionNumberCounter].attributes?.correctAnswer,
     );
   };
 
   const handleSelectAnswerChange = (answer: string, index: number) => {
     selectAnswer(answer, index);
   };
+
+  // const [isReady, setIsReady] = useState(false);
+  //
+  // useEffect(() => {
+  //   if (questions.length > 0) {
+  //     setIsReady(true);
+  //     console.log(toJS(questions));
+  //   }
+  // }, [questions]);
 
   return (
     <Box
@@ -89,8 +98,31 @@ export const QuizTest = observer(() => {
               marginBottom={['60px', '60px', '80px', '80px']}
               fontSize={['22px', '22px', '26px', '26px']}
             >
-              {questions[questionNumberCounter]?.word}
+              {questions[questionNumberCounter]?.attributes.word}
             </Text>
+            {/*{isReady && (*/}
+            {/*  <Box*/}
+            {/*    display="flex"*/}
+            {/*    flexDirection="column"*/}
+            {/*    gap="15px"*/}
+            {/*    width="100%"*/}
+            {/*    maxWidth="500px"*/}
+            {/*  >*/}
+            {/*    {questions[questionNumberCounter]?.attributes?.choices.map(*/}
+            {/*      (answer: string, index: number) => {*/}
+            {/*        return (*/}
+            {/*          <AnswerVariant*/}
+            {/*            onClick={() => handleSelectAnswerChange(answer, index)}*/}
+            {/*            isSelected={selectedAnswerIndex == index}*/}
+            {/*            key={answer}*/}
+            {/*          >*/}
+            {/*            {answer}*/}
+            {/*          </AnswerVariant>*/}
+            {/*        );*/}
+            {/*      },*/}
+            {/*    )}{' '}*/}
+            {/*  </Box>*/}
+            {/*)}*/}
             <Box
               display="flex"
               flexDirection="column"
@@ -98,8 +130,8 @@ export const QuizTest = observer(() => {
               width="100%"
               maxWidth="500px"
             >
-              {questions[questionNumberCounter]?.choices.map(
-                (answer, index) => {
+              {questions[questionNumberCounter]?.attributes?.choices.map(
+                (answer: string, index: number) => {
                   return (
                     <AnswerVariant
                       onClick={() => handleSelectAnswerChange(answer, index)}
@@ -110,9 +142,10 @@ export const QuizTest = observer(() => {
                     </AnswerVariant>
                   );
                 },
-              )}
+              )}{' '}
             </Box>
           </Box>
+
           <Box
             width="100%"
             display="flex"
