@@ -4,9 +4,6 @@ import {
 } from '../../types/adminPanelTypes/adminPanelTypes';
 import { makeAutoObservable } from 'mobx';
 import Parse from 'parse/dist/parse.min.js';
-import { parseInitialize } from '../../parse/parseInitialize.ts';
-
-parseInitialize();
 
 class AdminPanelStore {
   questions: QuizWordData[] = [];
@@ -14,7 +11,6 @@ class AdminPanelStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.getQuizWordData();
   }
 
   setQuestionArray = (questions: QuizWordData) => {
@@ -32,7 +28,7 @@ class AdminPanelStore {
     }
   };
 
-  pushQuizWordData = async ({
+  postQuizWordData = async ({
     translationValue,
     choices,
     textAreaValue,
