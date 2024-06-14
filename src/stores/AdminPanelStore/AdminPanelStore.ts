@@ -10,15 +10,15 @@ parseInitialize();
 
 class AdminPanelStore {
   questions: QuizWordData[] = [];
-  // quizWordData: QuizWordData | null = null;
   choices: string = '';
 
   constructor() {
     makeAutoObservable(this);
+    this.getQuizWordData();
   }
 
-  setQuestionArray = (question: QuizWordData) => {
-    this.questions = [...question];
+  setQuestionArray = (questions: QuizWordData) => {
+    this.questions = [...questions];
   };
 
   getQuizWordData = async () => {

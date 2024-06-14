@@ -31,7 +31,6 @@ export const WordPhonetic = ({
 
   const handlePhoneticAudioPlay = () => {
     phoneticAudio.play();
-    console.log(typeof phoneticAudio);
   };
   return (
     <Box>
