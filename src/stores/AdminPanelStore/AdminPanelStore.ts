@@ -15,7 +15,6 @@ class AdminPanelStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.getQuizWordData();
   }
 
   setQuestionArray = (question: QuizWordData) => {
@@ -33,11 +32,11 @@ class AdminPanelStore {
     }
   };
 
-  pushQuizWordData = async (
-    translationValue: string,
-    choices: string,
-    textAreaValue: string,
-  ) => {
+  pushQuizWordData = async ({
+    translationValue,
+    choices,
+    textAreaValue,
+  }: SubmitFormArguments) => {
     const translation: string = translationValue;
     const choicesArray: string[] = choices.split(', ');
     const correctAnswer: string = textAreaValue;
@@ -50,30 +49,6 @@ class AdminPanelStore {
     } catch (error: any) {
       console.log(`Error! ${error.message}`);
     }
-  };
-
-  submitForm = ({
-    translationValue,
-    choices,
-    // wordData,
-    textAreaValue,
-  }: SubmitFormArguments) => {
-    // const choicesArray = choices.split(', ');
-    // const phoneticAudio = new Audio(
-    //   `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${wordData.word}--_gb_1.mp3`,
-    // );
-    // this.setQuizWordData({
-    //   word: translationValue,
-    //   choices: choicesArray,
-    //   audio: phoneticAudio,
-    //   correctAnswer: textAreaValue,
-    // });
-    // if (this.quizWordData === null) {
-    //   return;
-    // }
-    //
-    // this.setQuestionArray(this.quizWordData);
-    this.pushQuizWordData(translationValue, choices, textAreaValue);
   };
 
   setChoices = (choicesStr: string) => {

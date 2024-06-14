@@ -5,15 +5,10 @@ import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 
 export const AdminPanel = observer(() => {
   const { wordData, translationValue, textAreaValue } = TranslationStore;
-  const { setChoices, submitForm, choices } = AdminPanelStore;
+  const { setChoices, pushQuizWordData, choices } = AdminPanelStore;
 
   const handleSubmitForm = () => {
-    submitForm({
-      translationValue,
-      choices,
-      wordData,
-      textAreaValue,
-    });
+    pushQuizWordData({ translationValue, choices, textAreaValue });
   };
 
   const handleChoicesChange = (event: React.ChangeEvent<HTMLInputElement>) => {

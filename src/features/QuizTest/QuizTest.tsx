@@ -29,15 +29,6 @@ export const QuizTest = observer(() => {
     selectAnswer(answer, index);
   };
 
-  // const [isReady, setIsReady] = useState(false);
-  //
-  // useEffect(() => {
-  //   if (questions.length > 0) {
-  //     setIsReady(true);
-  //     console.log(toJS(questions));
-  //   }
-  // }, [questions]);
-
   return (
     <Box
       maxWidth="1100px"
@@ -83,7 +74,6 @@ export const QuizTest = observer(() => {
               {activeQuestion}/{questions?.length}
             </Text>
           </Box>
-
           <Box
             width="100%"
             maxWidth="690px"
@@ -100,29 +90,6 @@ export const QuizTest = observer(() => {
             >
               {questions[questionNumberCounter]?.attributes.word}
             </Text>
-            {/*{isReady && (*/}
-            {/*  <Box*/}
-            {/*    display="flex"*/}
-            {/*    flexDirection="column"*/}
-            {/*    gap="15px"*/}
-            {/*    width="100%"*/}
-            {/*    maxWidth="500px"*/}
-            {/*  >*/}
-            {/*    {questions[questionNumberCounter]?.attributes?.choices.map(*/}
-            {/*      (answer: string, index: number) => {*/}
-            {/*        return (*/}
-            {/*          <AnswerVariant*/}
-            {/*            onClick={() => handleSelectAnswerChange(answer, index)}*/}
-            {/*            isSelected={selectedAnswerIndex == index}*/}
-            {/*            key={answer}*/}
-            {/*          >*/}
-            {/*            {answer}*/}
-            {/*          </AnswerVariant>*/}
-            {/*        );*/}
-            {/*      },*/}
-            {/*    )}{' '}*/}
-            {/*  </Box>*/}
-            {/*)}*/}
             <Box
               display="flex"
               flexDirection="column"
@@ -142,7 +109,7 @@ export const QuizTest = observer(() => {
                     </AnswerVariant>
                   );
                 },
-              )}{' '}
+              )}
             </Box>
           </Box>
 
