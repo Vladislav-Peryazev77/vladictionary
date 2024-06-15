@@ -2,8 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { Box, Button, CloseButton, Progress, Text } from '@chakra-ui/react';
 import AdminPanelStore from '../../stores/AdminPanelStore/AdminPanelStore';
 import QuizTestStore from '../../stores/QuizTestStore/QuizTestStore';
-import { AnswerVariant } from './components/AnswerVariant';
 import { QuizResultText } from './components/QuizResultText';
+import { AnswerVariant } from './components/AnswerVariant';
 
 export const QuizTest = observer(() => {
   const { questions } = AdminPanelStore;
@@ -21,7 +21,7 @@ export const QuizTest = observer(() => {
   const handleNextQuestionChange = () => {
     goToNextQuestion(
       questions.length,
-      questions[questionNumberCounter].correctAnswer,
+      questions[questionNumberCounter].attributes?.correctAnswer,
     );
   };
 
@@ -74,7 +74,6 @@ export const QuizTest = observer(() => {
               {activeQuestion}/{questions?.length}
             </Text>
           </Box>
-
           <Box
             width="100%"
             maxWidth="690px"
@@ -89,7 +88,7 @@ export const QuizTest = observer(() => {
               marginBottom={['60px', '60px', '80px', '80px']}
               fontSize={['22px', '22px', '26px', '26px']}
             >
-              {questions[questionNumberCounter]?.word}
+              {questions[questionNumberCounter]?.attributes.word}
             </Text>
             <Box
               display="flex"
@@ -98,8 +97,8 @@ export const QuizTest = observer(() => {
               width="100%"
               maxWidth="500px"
             >
-              {questions[questionNumberCounter]?.choices.map(
-                (answer, index) => {
+              {questions[questionNumberCounter]?.attributes?.choices.map(
+                (answer: string, index: number) => {
                   return (
                     <AnswerVariant
                       onClick={() => handleSelectAnswerChange(answer, index)}
@@ -113,6 +112,7 @@ export const QuizTest = observer(() => {
               )}
             </Box>
           </Box>
+
           <Box
             width="100%"
             display="flex"

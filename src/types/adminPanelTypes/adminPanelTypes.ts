@@ -1,5 +1,3 @@
-import { WordData } from '../translationTypes/translationTypes';
-
 export type QuizWordData = {
   word: string;
   choices: string[];
@@ -10,6 +8,5 @@ export type QuizWordData = {
 export type SubmitFormArguments = {
   translationValue: string;
   choices: string;
-  wordData: WordData;
   textAreaValue: string;
 };

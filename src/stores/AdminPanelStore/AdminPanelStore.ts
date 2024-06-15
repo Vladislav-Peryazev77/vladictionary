@@ -3,47 +3,48 @@ import {
   SubmitFormArguments,
 } from '../../types/adminPanelTypes/adminPanelTypes';
 import { makeAutoObservable } from 'mobx';
+import Parse from 'parse/dist/parse.min.js';
 
 class AdminPanelStore {
   questions: QuizWordData[] = [];
-  quizWordData: QuizWordData | null = null;
   choices: string = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setQuizWordData = (data: QuizWordData) => {
-    this.quizWordData = data;
+  setQuestionArray = (questions: QuizWordData) => {
+    this.questions = [...questions];
   };
 
-  setQuestionArray = (question: QuizWordData) => {
-    if (question === null) {
-      return;
+  getQuizWordData = async () => {
+    const parseQuery: Parse.Query = new Parse.Query('QuizTestData');
+    try {
+      const quizWordData: QuizWordData = await parseQuery.find();
+
+      this.setQuestionArray(quizWordData);
+    } catch (error: any) {
+      console.log(`Error: ${error}`);
     }
-    this.questions = [...this.questions, question];
   };
 
-  submitForm = ({
+  postQuizWordData = async ({
     translationValue,
     choices,
-    wordData,
     textAreaValue,
   }: SubmitFormArguments) => {
-    const choicesArray = choices.split(', ');
-    const phoneticAudio = new Audio(
-      `https://ssl.gstatic.com/dictionary/static/sounds/20200429/${wordData.word}--_gb_1.mp3`,
-    );
-    this.setQuizWordData({
-      word: translationValue,
-      choices: choicesArray,
-      audio: phoneticAudio,
-      correctAnswer: textAreaValue,
-    });
-    if (this.quizWordData === null) {
-      return;
+    const translation: string = translationValue;
+    const choicesArray: string[] = choices.split(', ');
+    const correctAnswer: string = textAreaValue;
+    let QuizTestData: Parse.Object = new Parse.Object('QuizTestData');
+    QuizTestData.set('word', translation);
+    QuizTestData.set('choices', choicesArray);
+    QuizTestData.set('correctAnswer', correctAnswer);
+    try {
+      await QuizTestData.save();
+    } catch (error: any) {
+      console.log(`Error! ${error.message}`);
     }
-    this.setQuestionArray(this.quizWordData);
   };
 
   setChoices = (choicesStr: string) => {
